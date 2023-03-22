@@ -26,3 +26,6 @@ Route::get('/',  [ClientController::class, 'index'])->name('accueil');
 Route::get('/boutique',  [ClientController::class, 'viewBoutiquePage'])->name('boutique');
 
 Route::get('/contact',  [ClientController::class, 'viewContactPage'])->name('contact');
+
+// Route pour l'affichage de la page static Contact
+Route::get('/detailProduit',  [ClientController::class, 'viewProductDetailPage'])->name('detail_produit');

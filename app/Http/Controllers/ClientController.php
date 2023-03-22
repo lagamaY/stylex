@@ -19,4 +19,8 @@ class ClientController extends Controller
     public function viewContactPage(){
         return view("client.contact");
     }
+    
+    public function viewProductDetailPage(){
+        return view("client.detail_produit");
+    }
 }
