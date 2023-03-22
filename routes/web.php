@@ -27,6 +27,8 @@ Route::get('/boutique',  [ClientController::class, 'viewBoutiquePage'])->name('b
 
 Route::get('/panier',  [ClientController::class, 'viewPanierPage'])->name('panier');
 
+Route::get('/checkout',  [ClientController::class, 'viewCheckoutPage'])->name('panier');
+
 Route::get('/detailProduit',  [ClientController::class, 'viewProductDetailPage'])->name('detail_produit');
 
 

@@ -27,4 +27,10 @@ class ClientController extends Controller
     public function viewPanierPage(){
         return view("client.panier");
     }
+
+    public function viewCheckoutPage(){
+        return view("client.checkout");
+    }
+
+
 }
