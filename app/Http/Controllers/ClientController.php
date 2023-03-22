@@ -23,4 +23,8 @@ class ClientController extends Controller
     public function viewProductDetailPage(){
         return view("client.detail_produit");
     }
+    
+    public function viewPanierPage(){
+        return view("client.panier");
+    }
 }
