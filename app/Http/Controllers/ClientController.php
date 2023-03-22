@@ -11,4 +11,12 @@ class ClientController extends Controller
     public function index(){
         return view("client.index");
     }
+
+    public function viewBoutiquePage(){
+        return view("client.boutique");
+    }
+
+    public function viewContactPage(){
+        return view("client.contact");
+    }
 }

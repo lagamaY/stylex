@@ -22,3 +22,7 @@ use App\Http\Controllers\ClientController;
 // Route pour l'affichage de la page d'accueil
 
 Route::get('/',  [ClientController::class, 'index'])->name('accueil');
+
+Route::get('/boutique',  [ClientController::class, 'viewBoutiquePage'])->name('boutique');
+
+Route::get('/contact',  [ClientController::class, 'viewContactPage'])->name('contact');
