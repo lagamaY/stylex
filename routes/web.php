@@ -35,3 +35,6 @@ Route::get('/detailProduit',  [ClientController::class, 'viewProductDetailPage']
 
 // Route pour l'affichage de la page static Contact
 Route::get('/contact',  [ClientController::class, 'viewContactPage'])->name('contact');
+
+// Authentification client
+Route::get('/login',  [ClientController::class, 'viewLoginPage'])->name('login_client');

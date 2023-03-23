@@ -32,5 +32,9 @@ class ClientController extends Controller
         return view("client.checkout");
     }
 
+    public function viewLoginPage(){
+        return view("client.authentification.login");
+    }
+ 
 
 }
