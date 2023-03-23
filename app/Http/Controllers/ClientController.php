@@ -35,6 +35,10 @@ class ClientController extends Controller
     public function viewLoginPage(){
         return view("client.authentification.login");
     }
+
+    public function viewRegisterPage(){
+        return view("client.authentification.register");
+    }
  
 
 }
