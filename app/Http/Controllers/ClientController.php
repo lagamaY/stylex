@@ -8,7 +8,7 @@ class ClientController extends Controller
 {
     // Affichage de la page d'accueil
 
-    public function index(){
+    public function viewIndex(){
         return view("client.index");
     }
 

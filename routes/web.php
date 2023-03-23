@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ClientController;
-
+use App\Http\Controllers\ClientController; 
+use App\Http\Controllers\EspaceClientController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +21,7 @@ use App\Http\Controllers\ClientController;
 
 // Route pour l'affichage de la page d'accueil
 
-Route::get('/',  [ClientController::class, 'index'])->name('accueil');
+Route::get('/',  [ClientController::class, 'viewIndex'])->name('accueil');
 
 Route::get('/boutique',  [ClientController::class, 'viewBoutiquePage'])->name('boutique');
 
@@ -39,3 +39,20 @@ Route::get('/contact',  [ClientController::class, 'viewContactPage'])->name('con
 // Authentification compte client
 Route::get('/login',  [ClientController::class, 'viewLoginPage'])->name('login_client');
 Route::get('/register',  [ClientController::class, 'viewRegisterPage'])->name('register_client');
+
+
+
+
+
+
+
+
+// Routes du compte client
+
+Route::prefix('compte/client')->group(function () {
+
+    Route::get('/accueil', [EspaceClientController::class, 'getAccueil'])->name('compte_client_accueil');
+
+        // Matches The "/admin/login" URL
+    
+});

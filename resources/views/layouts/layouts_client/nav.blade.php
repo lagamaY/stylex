@@ -50,7 +50,7 @@
                             <a href="{{Route('contact')}}" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="{{Route('login_client')}}" class="nav-item nav-link">Login</a>
+                            <a href="{{Route('login_client')}}" class="nav-item nav-link">Se connecter</a>
                             <a href="{{Route('register_client')}}" class="nav-item nav-link">Créer un compte</a>
                         </div>
                     </div>
