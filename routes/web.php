@@ -49,10 +49,10 @@ Route::get('/register',  [ClientController::class, 'viewRegisterPage'])->name('r
 
 // Routes du compte client
 
-Route::prefix('compte/client')->group(function () {
+Route::prefix('espace/client')->group(function () {
 
     Route::get('/accueil', [EspaceClientController::class, 'getAccueil'])->name('compte_client_accueil');
 
-        // Matches The "/admin/login" URL
+        
     
 });
