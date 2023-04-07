@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;  
 
 use App\Http\Controllers\ClientController; 
 use App\Http\Controllers\EspaceClientController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,9 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/login', [AdminAuthController::class, 'viewLoginPage'])->name('login_admin');
     Route::get('/register', [AdminAuthController::class, 'viewRegisterPage'])->name('register_admin');
-    Route::get('/forgotpassword', [AdminAuthController::class, 'viewForgotPasswordPage'])->name('forgot-password_admin');   
+    Route::get('/forgotpassword', [AdminAuthController::class, 'viewForgotPasswordPage'])->name('forgot-password_admin');
+    
+    
+    Route::get('/dashboard', [AdminController::class, 'viewDashboardPage'])->name('dashboard_admin');
     
 });
