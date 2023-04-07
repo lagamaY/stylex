@@ -9,7 +9,7 @@
 <div id="header-carousel" class="carousel slide" data-ride="carousel">
                   
                    
-       <!-- MON CONTENU DOIT ÊTRE ICI             -->
+      <h1 text-align="center"> MON CONTENU DOIT ÊTRE ICI </h1>           
 </div> 
 
 @endsection

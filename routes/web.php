@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ClientController; 
-use App\Http\Controllers\EspaceClientController; 
+use App\Http\Controllers\EspaceClientController;
+use App\Http\Controllers\AdminAuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,15 +38,10 @@ Route::get('/detailProduit',  [ClientController::class, 'viewProductDetailPage']
 // Route pour l'affichage de la page static Contact
 Route::get('/contact',  [ClientController::class, 'viewContactPage'])->name('contact');
 
+
 // Authentification compte client
 Route::get('/login',  [ClientController::class, 'viewLoginPage'])->name('login_client');
 Route::get('/register',  [ClientController::class, 'viewRegisterPage'])->name('register_client');
-
-
-
-
-
-
 
 
 // Routes du compte client
@@ -54,5 +51,15 @@ Route::prefix('espace/client')->group(function () {
     Route::get('/accueil', [EspaceClientController::class, 'getAccueil'])->name('compte_client_accueil');
 
         
+    
+});
+
+// Authentification compte administrateur
+
+Route::prefix('admin')->group(function () { 
+
+    Route::get('/login', [AdminAuthController::class, 'viewLoginPage'])->name('login_admin');
+    Route::get('/register', [AdminAuthController::class, 'viewRegisterPage'])->name('register_admin');
+    Route::get('/forgotpassword', [AdminAuthController::class, 'viewForgotPasswordPage'])->name('forgot-password_admin');   
     
 });

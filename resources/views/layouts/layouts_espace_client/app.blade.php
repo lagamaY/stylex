@@ -68,6 +68,30 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <!-- <a href="{{Route('accueil')}}" class="nav-item nav-link active">Accueil</a>
+                            <a href="{{Route('boutique')}}" class="nav-item nav-link">Boutique</a> -->
+                            <!-- <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="cart.html" class="dropdown-item">Shopping Cart</a>
+                                    <a href="checkout.html" class="dropdown-item">Checkout</a>
+                                </div>
+                            </div> -->
+                            <!-- <a href="contact.html" class="nav-item nav-link">Contact</a> -->
+                        </div>
+                        <div class="navbar-nav ml-auto py-0">
+                            <!-- <a href="{{Route('login_client')}}" class="nav-item nav-link">Se connecter</a> -->
+                            <a href="{{Route('register_client')}}" class="nav-item nav-link">Créer un compte</a>
+
+                            <img src="{{asset('eshopper/img/cat-1.jpg')}}" class="img-fluid profile-image" width="50" style="border-radius: 10px;border: 2px solid #5957f9;">
+                            
+                        </div>
+                    </div>
+
+
                 </nav>
              @yield('content')
             </div>
