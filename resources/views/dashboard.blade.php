@@ -1,11 +1,6 @@
-@extends('layouts.layouts_admin.espace_admin.app')
-
-@section('title')
-    Dashboard
-@endsection
+<x-app-layout>
 
 
-@section('content')
 
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -542,4 +537,7 @@
               </div>
             </div>
 
-            @endsection
+
+
+
+</x-app-layout>

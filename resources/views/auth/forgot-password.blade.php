@@ -1,15 +1,19 @@
-@extends('layouts.layouts_admin.auth.app')
-
-@section('title')
-    Créer un compte
-@endsection
+<x-guest-layout>
 
 
-@section('content')
-<div class="container-xxl">
+
+    <!-- <div class="mb-4 text-sm text-gray-600">
+        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+    </div> -->
+
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
+
+
+    <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
-        <div class="authentication-inner">
-          <!-- Register Card -->
+        <div class="authentication-inner py-4">
+          <!-- Forgot Password -->
           <div class="card">
             <div class="card-body">
               <!-- Logo -->
@@ -74,62 +78,53 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Adventure starts here</h4>
-              <p class="mb-4">Make your app management easy and fun!</p>
+              <h4 class="mb-2">Forgot Password? </h4>
+              <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
-                <div class="mb-3">
-                  <label for="username" class="form-label">Username</label>
-                  <input
-                    type="text"
+
+
+
+    <form method="POST" action="{{ route('password.email') }}" id="formAuthentication">
+        @csrf
+
+        <!-- Email Address -->
+        <div>
+            <!-- <x-input-label for="email" :value="__('Email')" /> -->
+            <label for="email" class="form-label" :value="__('Email')">Email</label>
+            <!-- <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus /> -->
+            <input
+                    type="email"
                     class="form-control"
-                    id="username"
-                    name="username"
-                    placeholder="Enter your username"
+                    id="email"
+                    name="email"
+                    :value="old('email')"
+                    :messages="$errors->get('email')"
+                    placeholder="Enter your email"
+                    required
                     autofocus
+                    
                   />
-                </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
-                </div>
-                <div class="mb-3 form-password-toggle">
-                  <label class="form-label" for="password">Password</label>
-                  <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-control"
-                      name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
-                    />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                  </div>
-                </div>
+            
+            <!-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> -->
+        </div><br/>
 
-                <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                    <label class="form-check-label" for="terms-conditions">
-                      I agree to
-                      <a href="javascript:void(0);">privacy policy & terms</a>
-                    </label>
-                  </div>
-                </div>
-                <button class="btn btn-primary d-grid w-100">Sign up</button>
-              </form>
+        <button class="btn btn-primary d-grid w-100">{{ __('Send Reset Link') }}</button>
 
-              <p class="text-center">
-                <span>Already have an account?</span>
-                <a href="{{Route('login_admin')}}">
-                  <span>Sign in instead</span>
+       
+    </form>
+    <br/>
+    <div class="text-center">
+                <a href="{{Route('login')}}" class="d-flex align-items-center justify-content-center">
+                  <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+                  Back to login
                 </a>
-              </p>
+              </div>
             </div>
           </div>
-          <!-- Register Card -->
+          <!-- /Forgot Password -->
         </div>
       </div>
     </div>
-    @endsection
+
+
+</x-guest-layout>

@@ -1,13 +1,9 @@
-@extends('layouts.layouts_admin.auth.app')
-
-@section('title')
-    Connexion
-@endsection
+<x-guest-layout>
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
 
-@section('content')
-
-<div class="container-xxl">
+    <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
           <!-- Register -->
@@ -75,27 +71,51 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Sneat! </h4>
-              <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email or Username</label>
-                  <input
-                    type="text"
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <!-- Email Address -->
+        <div class="mb-3">
+            <!-- <x-input-label for="email" :value="__('Email')" /> -->
+            <label for="email" class="form-label" :value="__('Email')">Email</label>
+            <!-- <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" 
+            required autofocus autocomplete="username" /> -->
+            <input
+                    type="email"
                     class="form-control"
                     id="email"
-                    name="email-username"
-                    placeholder="Enter your email or username"
+                    name="email"
+                    :value="old('email')"
+                    :messages="$errors->get('email')"
+                    placeholder="Enter your email "
+                    autocomplete="username"
                     autofocus
+                    required
                   />
-                </div>
-                <div class="mb-3 form-password-toggle">
+            <!-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> -->
+        </div>
+
+        <!-- Password -->
+        <!-- <div class="mt-4">
+            <x-input-label for="password" :value="__('Password')" />
+
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div> -->
+
+        <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Password</label>
-                    <a href="{{Route('forgot-password_admin')}}"> 
-                      <small>Forgot Password?</small>
+                    <label class="form-label" for="password" :value="__('Password')">Password</label>
+                    @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}"> 
+                      <small> {{ __('Forgot password?') }}</small>
                     </a>
+                    @endif
                   </div>
                   <div class="input-group input-group-merge">
                     <input
@@ -103,26 +123,39 @@
                       id="password"
                       class="form-control"
                       name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
+                      required autocomplete="current-password"
+                      :messages="$errors->get('password')"
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
-                <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                    <label class="form-check-label" for="remember-me"> Remember Me </label>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
-                </div>
-              </form>
 
-              <p class="text-center">
+        <!-- Remember Me -->
+        <!-- <div class="block mt-4">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+            </label>
+        </div> -->
+
+        <div class="mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="remember-me" name="remember"/>
+                    <label class="form-check-label" for="remember-me">{{ __('Remember me') }} </label>
+                  </div>
+        </div>
+
+        <div class="mb-3">
+                  <button class="btn btn-primary d-grid w-100" type="submit">{{ __('Log in') }}</button>
+        </div>
+
+
+    </form>
+
+
+    <p class="text-center">
                 <span>New on our platform?</span>
-                <a href="{{Route('register_admin')}}">
+                <a href="{{Route('register')}}">
                   <span>Create an account</span>
                 </a>
               </p>
@@ -134,6 +167,4 @@
     </div>
 
 
-
-
-@endsection
+</x-guest-layout>
