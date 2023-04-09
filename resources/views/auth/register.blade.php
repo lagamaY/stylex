@@ -90,8 +90,8 @@
                     id="name"
                     name="name"
                     placeholder="Enter your username"
-                    :value="old('name')"
-                    :messages="$errors->get('name')"
+                    value="{{old('name')}}"
+                    messages="{{$errors->get('name')}}"
                     required
                     autofocus
                     autocomplete="name"
@@ -102,17 +102,17 @@
         <!-- Email Address -->
         <div class="mb-3">
             <!-- <x-input-label for="email" :value="__('Email')" /> -->
-            <label for="email" class="form-label">Email</label>
+            <label for="email" class="form-label" value="{{__('Email')}}">Email</label>
 
             <!-- <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" /> -->
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" :value="old('email')" required autocomplete="username" :messages="$errors->get('email')"/>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="{{old('email')}}" required autocomplete="username" :messages="$errors->get('email')"/>
             <!-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> -->
         </div>
 
         <!-- Password -->
         <div class="mb-3 form-password-toggle">
             <!-- <x-input-label for="password" :value="__('Password')" /> -->
-            <label class="form-label" for="password" :value="__('Password')">Password</label>
+            <label class="form-label" for="password" value="{{__('Password')}}">Password</label>
 
             <!-- <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
@@ -127,7 +127,7 @@
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                       required autocomplete="new-password"
-                      :messages="$errors->get('password')"
+                      messages="{{$errors->get('password')}}"
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
             </div>
@@ -141,7 +141,7 @@
         <div class="mb-3">
             <!-- <x-input-label for="password_confirmation" :value="__('Confirm Password')" /> -->
 
-            <label class="form-label" for="password_confirmation" :value="__('Confirm Password')">Confirm Password</label>
+            <label class="form-label" for="password_confirmation" value="{{__('Confirm Password')}}">Confirm Password</label>
 
 
             <!-- <x-text-input id="password_confirmation" class="block mt-1 w-full"
@@ -156,7 +156,7 @@
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                       required autocomplete="new-password"
-                      :messages="$errors->get('password_confirmation')"
+                      messages="{{$errors->get('password_confirmation')}}"
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
             </div>
