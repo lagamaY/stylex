@@ -8,6 +8,12 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Categories</span></h4>
 
+              @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                           {!! session('success') !!}
+                    </div>
+               @endif
+               
                <!-- Basic Bootstrap Table -->
                <div class="card">
                 <h5 class="card-header">Catégories disponibles</h5>
@@ -51,11 +57,11 @@
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
+                            <div class="dropdown-menu"> 
+                              <a class="dropdown-item" href="{{route('showEditCategorie', ['id'=> $item->id] )}}"
                                 ><i class="bx bx-edit-alt me-2"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="javascript:void(0);"
+                              <a class="dropdown-item" href="{{route('deleteCategorie', ['id'=> $item->id] )}}"
                                 ><i class="bx bx-trash me-2"></i> Delete</a
                               >
                             </div>

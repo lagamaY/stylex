@@ -76,6 +76,11 @@ Route::prefix('admin/dashboard')->group(function () {
     Route::get('/addCategorie',  [CategoriesController::class, 'addCategorie'])->name("ajoutCategorie");
     Route::post('/saveCategorie',  [CategoriesController::class, 'saveCategorie'])->name("saveCategorie");
     Route::get('/allCategorie',  [CategoriesController::class, 'allCategorie'])->name("allCategorie");
+    Route::get('/showEditCategorie/{id}',  [CategoriesController::class, 'showEditCategorie'])->name("showEditCategorie");
+    Route::post('/updateCategorie/{id}',  [CategoriesController::class, 'updateCategorie'])->name("updateCategorie");
+    Route::get('/deleteCategorie/{id}',  [CategoriesController::class, 'deleteCategorie'])->name("deleteCategorie");
 
 });
+
+
 
