@@ -79,7 +79,7 @@
             <!-- / Content -->
 
             <!-- Footer -->
-          @include('layouts.layouts_admin.espace_admin.footer')
+          <!-- @include('layouts.layouts_admin.espace_admin.footer') -->
             <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>

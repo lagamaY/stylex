@@ -47,6 +47,13 @@ class CategoriesController extends Controller
 
 
 
+     //
 
+     public function allCategorie(){
+
+        $Categorie = Categorie::get();
+
+        return view('layouts.layouts_admin.categories.allCategorie')->with('Categorie', $Categorie);
+    }
 
 }
