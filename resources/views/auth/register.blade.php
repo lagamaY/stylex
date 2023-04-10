@@ -90,8 +90,8 @@
                     id="name"
                     name="name"
                     placeholder="Enter your username"
-                    value="{{old('name')}}"
-                    messages="{{$errors->get('name')}}"
+                    
+                    
                     required
                     autofocus
                     autocomplete="name"
@@ -127,7 +127,7 @@
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                       required autocomplete="new-password"
-                      messages="{{$errors->get('password')}}"
+                      
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
             </div>
@@ -156,7 +156,7 @@
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                       required autocomplete="new-password"
-                      messages="{{$errors->get('password_confirmation')}}"
+                     
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
             </div>
