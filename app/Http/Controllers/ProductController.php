@@ -7,4 +7,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     //
+    public function addProduct(){
+        return view('layouts.layouts_admin.produits.addProduct');
+    }
 }

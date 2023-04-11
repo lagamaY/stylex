@@ -70,7 +70,7 @@ class CategoriesController extends Controller
    }
 
        
-
+   //
     public function  updateCategorie(Request $request, $id){
 
     $request->validate([

@@ -8,7 +8,7 @@ use App\Http\Controllers\EspaceClientController;
 
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TailleController; 
-use App\Http\Controllers\CouleurClientController;
+use App\Http\Controllers\CouleurController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -92,39 +92,39 @@ Route::prefix('admin/dashboard/taille')->group(function () {
 
     Route::get('/addTaille',  [TailleController::class, 'addTaille'])->name("ajoutTaille");
     Route::post('/saveTaille',  [TailleController::class, 'saveTaille'])->name("saveTaille");
-    // Route::get('/allTaille',  [TailleController::class, 'allTaille'])->name("allTaille");
-    // Route::get('/showEditTaille/{id}',  [TailleController::class, 'showEditTaille'])->name("showEditTaille");
-    // Route::post('/updateTaille/{id}',  [TailleController::class, 'updateTaille'])->name("updateTaille");
-    // Route::get('/deleteTaille/{id}',  [TailleController::class, 'deleteTaille'])->name("deleteTaille");
+    Route::get('/allTaille',  [TailleController::class, 'allTaille'])->name("allTaille");
+    Route::get('/showEditTaille/{id}',  [TailleController::class, 'showEditTaille'])->name("showEditTaille");
+    Route::post('/updateTaille/{id}',  [TailleController::class, 'updateTaille'])->name("updateTaille");
+    Route::get('/deleteTaille/{id}',  [TailleController::class, 'deleteTaille'])->name("deleteTaille");
 
 });
 
 
 // Routes Couleur
 
-// Route::prefix('admin/dashboard/couleur')->group(function () {
+Route::prefix('admin/dashboard/couleur')->group(function () {
 
-//     Route::get('/addCouleur',  [CouleurController::class, 'addCouleur'])->name("ajoutCouleur");
-//     Route::post('/saveCouleur',  [CouleurController::class, 'saveCouleur'])->name("saveCouleur");
-//     Route::get('/allCouleur',  [CouleurController::class, 'allCouleur'])->name("allCouleur");
-//     Route::get('/showEditCouleur/{id}',  [CouleurController::class, 'showEditCouleur'])->name("showEditCouleur");
-//     Route::post('/updateCouleur/{id}',  [CouleurController::class, 'updateCouleur'])->name("updateCouleur");
-//     Route::get('/deleteCouleur/{id}',  [CouleurController::class, 'deleteCouleur'])->name("deleteCouleur");
+    Route::get('/addCouleur',  [CouleurController::class, 'addCouleur'])->name("ajoutCouleur");
+    Route::post('/saveCouleur',  [CouleurController::class, 'saveCouleur'])->name("saveCouleur");
+    Route::get('/allCouleur',  [CouleurController::class, 'allCouleur'])->name("allCouleur");
+    Route::get('/showEditCouleur/{id}',  [CouleurController::class, 'showEditCouleur'])->name("showEditCouleur");
+    Route::post('/updateCouleur/{id}',  [CouleurController::class, 'updateCouleur'])->name("updateCouleur");
+    Route::get('/deleteCouleur/{id}',  [CouleurController::class, 'deleteCouleur'])->name("deleteCouleur");
 
-// });
+});
 
 // Routes Product
 
-// Route::prefix('admin/dashboard/product')->group(function () {
+Route::prefix('admin/dashboard/product')->group(function () {
 
-//     Route::get('/addProduct',  [ProductController::class, 'addProduct'])->name("ajoutProduct");
-//     Route::post('/saveProduct',  [ProductController::class, 'saveProduct'])->name("saveProduct");
-//     Route::get('/allProduct',  [ProductController::class, 'allProduct'])->name("allProduct");
-//     Route::get('/showEditProduct/{id}',  [ProductController::class, 'showEditProduct'])->name("showEditProduct");
-//     Route::post('/updateProduct/{id}',  [ProductController::class, 'updateProduct'])->name("updateProduct");
-//     Route::get('/deleteProduct/{id}',  [ProductController::class, 'deleteProduct'])->name("deleteProduct");
+    Route::get('/addProduct',  [ProductController::class, 'addProduct'])->name("addProduct");
+    // Route::post('/saveProduct',  [ProductController::class, 'saveProduct'])->name("saveProduct");
+    // Route::get('/allProduct',  [ProductController::class, 'allProduct'])->name("allProduct");
+    // Route::get('/showEditProduct/{id}',  [ProductController::class, 'showEditProduct'])->name("showEditProduct");
+    // Route::post('/updateProduct/{id}',  [ProductController::class, 'updateProduct'])->name("updateProduct");
+    // Route::get('/deleteProduct/{id}',  [ProductController::class, 'deleteProduct'])->name("deleteProduct");
 
-// });
+});
 
 
 

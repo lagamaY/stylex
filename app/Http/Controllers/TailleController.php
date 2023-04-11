@@ -39,10 +39,61 @@ class TailleController extends Controller
     }
 
     
-    
-    
+    public function allTaille(){
+
+        $Taille = Taille::get();
+
+        return view('layouts.layouts_admin.tailles.allTaille')->with('Taille', $Taille);
+    }
+
+
+    //
+
+    public function showEditTaille($id) {
+             
+            $Taille = Taille::find($id);
+           
+        
+            return view('layouts.layouts_admin.tailles.showEditTaille')->with('Taille', $Taille);
+        
+                
+   }
     
 
+         //
+    public function  updateTaille(Request $request, $id){
+
+            $request->validate([
+                'nomTaille' => 'required|max:255',
+            ]);
+        
+            // dd($request);
+
+            $Taille = Taille::findOrFail($id);
+        
+        
+            $Taille->taille = $request->input('nomTaille');
+        
+                $Taille->save();
+        
+                session()->flash('success', 'Taille modifiée avec succès !');
+        
+                return redirect()->route('allTaille');
+        
+     }
+    
+     //
+
+     public function deleteTaille($id)
+     {
+         
+         $Taille = Taille::findOrFail($id);
+         $Taille->delete();
+
+        
+ 
+        return redirect()->route('allTaille');
+     }
 
 
 
