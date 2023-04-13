@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController; 
 use App\Http\Controllers\EspaceClientController;
 
+use App\Http\Controllers\SlideController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TailleController; 
 use App\Http\Controllers\CouleurController;
@@ -71,6 +72,21 @@ Route::prefix('espace/client')->group(function () {
     Route::get('/accueil', [EspaceClientController::class, 'getAccueil'])->name('compte_client_accueil');
 
 });
+
+
+// Routes slide
+
+Route::prefix('admin/dashboard/slide')->group(function () {
+
+    Route::get('/addSlide',  [SlideController::class, 'addSlide'])->name("ajoutSlide");
+    Route::post('/saveSlide',  [SlideController::class, 'saveSlide'])->name("saveSlide");
+    Route::get('/allSlide',  [SlideController::class, 'allSlide'])->name("allSlide");
+    Route::get('/showEditSlide/{id}',  [SlideController::class, 'showEditSlide'])->name("showEditSlide");
+    Route::post('/updateSlide/{id}',  [SlideController::class, 'updateSlide'])->name("updateSlide");
+    Route::get('/deleteSlide/{id}',  [SlideController::class, 'deleteSlide'])->name("deleteSlide");
+
+});
+
 
 
 // Routes Categories

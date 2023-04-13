@@ -42,7 +42,7 @@ class CategoriesController extends Controller
 
         session()->flash('success', 'Categorie enregistrée avec succès !');
     
-        return redirect('admin/dashboard/addCategorie');
+        return redirect('admin/dashboard/categories/addCategorie');
     }
 
 

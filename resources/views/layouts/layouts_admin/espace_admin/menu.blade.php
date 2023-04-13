@@ -112,6 +112,33 @@
             </li> -->
 
 
+            <li class="menu-header small text-uppercase">
+              <!-- <span class="menu-header-text">Pages</span> -->
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">Slides</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{route('ajoutSlide')}}" class="menu-link">
+                    <div data-i18n="Account">Ajouter</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{route('allSlide')}}" class="menu-link">
+                    <div data-i18n="Notifications">Voir</div>
+                  </a>
+                </li>
+                <!-- <li class="menu-item">
+                  <a href="pages-account-settings-connections.html" class="menu-link">
+                    <div data-i18n="Connections">Connections</div>
+                  </a>
+                </li> -->
+              </ul>
+            </li>
+
 
             <li class="menu-header small text-uppercase">
               <!-- <span class="menu-header-text">Pages</span> -->
