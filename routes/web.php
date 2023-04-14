@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController; 
 use App\Http\Controllers\EspaceClientController;
 
-use App\Http\Controllers\SlideController;
+use App\Http\Controllers\SlideController;  
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\SousCategoriesController;
 use App\Http\Controllers\TailleController; 
 use App\Http\Controllers\CouleurController;
 use App\Http\Controllers\ProductController;
@@ -91,7 +92,7 @@ Route::prefix('admin/dashboard/slide')->group(function () {
 
 // Routes Categories
 
-Route::prefix('admin/dashboard/categorie')->group(function () {
+Route::prefix('admin/dashboard/categories')->group(function () {
 
     Route::get('/addCategorie',  [CategoriesController::class, 'addCategorie'])->name("ajoutCategorie");
     Route::post('/saveCategorie',  [CategoriesController::class, 'saveCategorie'])->name("saveCategorie");
@@ -102,45 +103,65 @@ Route::prefix('admin/dashboard/categorie')->group(function () {
 
 });
 
+
+// Routes Sous Categories
+
+Route::prefix('admin/dashboard/sous-categorie')->group(function () {
+
+    Route::get('/addSousCategorie',  [SousCategoriesController::class, 'addSousCategorie'])->name("ajoutSousCategorie");
+    Route::post('/saveSousCategorie',  [SousCategoriesController::class, 'saveSousCategorie'])->name("saveSousCategorie");
+    Route::get('/allSousCategorie',  [SousCategoriesController::class, 'allSousCategorie'])->name("allSousCategorie");
+    // Route::get('/showEditSousCategorie/{id}',  [SousCategoriesController::class, 'showEditSousCategorie'])->name("showEditSousCategorie");
+    // Route::post('/updateSousCategorie/{id}',  [SousCategoriesController::class, 'updateSousCategorie'])->name("updateSousCategorie");
+    // Route::get('/deleteSousCategorie/{id}',  [SousCategoriesController::class, 'deleteSousCategorie'])->name("deleteSousCategorie");
+
+});
+
 // Routes Taille
 
-Route::prefix('admin/dashboard/taille')->group(function () {
+Route::controller(TailleController::class)->prefix('admin/dashboard/taille')->group(function () {
 
-    Route::get('/addTaille',  [TailleController::class, 'addTaille'])->name("ajoutTaille");
-    Route::post('/saveTaille',  [TailleController::class, 'saveTaille'])->name("saveTaille");
-    Route::get('/allTaille',  [TailleController::class, 'allTaille'])->name("allTaille");
-    Route::get('/showEditTaille/{id}',  [TailleController::class, 'showEditTaille'])->name("showEditTaille");
-    Route::post('/updateTaille/{id}',  [TailleController::class, 'updateTaille'])->name("updateTaille");
-    Route::get('/deleteTaille/{id}',  [TailleController::class, 'deleteTaille'])->name("deleteTaille");
+    Route::get('/addTaille',  'addTaille')->name("ajoutTaille");
+    Route::post('/saveTaille',  'saveTaille')->name("saveTaille");
+    Route::get('/allTaille',   'allTaille')->name("allTaille");
+    Route::get('/showEditTaille/{id}',   'showEditTaille')->name("showEditTaille");
+    Route::post('/updateTaille/{id}', 'updateTaille')->name("updateTaille");
+    Route::get('/deleteTaille/{id}', 'deleteTaille')->name("deleteTaille");
 
 });
 
 
 // Routes Couleur
 
-Route::prefix('admin/dashboard/couleur')->group(function () {
+Route::controller(CouleurController::class)->prefix('admin/dashboard/couleur')->group(function () {
 
-    Route::get('/addCouleur',  [CouleurController::class, 'addCouleur'])->name("ajoutCouleur");
-    Route::post('/saveCouleur',  [CouleurController::class, 'saveCouleur'])->name("saveCouleur");
-    Route::get('/allCouleur',  [CouleurController::class, 'allCouleur'])->name("allCouleur");
-    Route::get('/showEditCouleur/{id}',  [CouleurController::class, 'showEditCouleur'])->name("showEditCouleur");
-    Route::post('/updateCouleur/{id}',  [CouleurController::class, 'updateCouleur'])->name("updateCouleur");
-    Route::get('/deleteCouleur/{id}',  [CouleurController::class, 'deleteCouleur'])->name("deleteCouleur");
+    Route::get('/addCouleur',  'addCouleur')->name("ajoutCouleur");
+    Route::post('/saveCouleur',   'saveCouleur')->name("saveCouleur");
+    Route::get('/allCouleur', 'allCouleur')->name("allCouleur");
+    Route::get('/showEditCouleur/{id}',  'showEditCouleur')->name("showEditCouleur");
+    Route::post('/updateCouleur/{id}','updateCouleur')->name("updateCouleur");
+    Route::get('/deleteCouleur/{id}', 'deleteCouleur')->name("deleteCouleur");
 
 });
+
+
+
 
 // Routes Product
 
-Route::prefix('admin/dashboard/product')->group(function () {
+Route::controller(ProductController::class)->prefix('admin/dashboard/product')->group(function () {
 
-    Route::get('/addProduct',  [ProductController::class, 'addProduct'])->name("addProduct");
-    // Route::post('/saveProduct',  [ProductController::class, 'saveProduct'])->name("saveProduct");
-    // Route::get('/allProduct',  [ProductController::class, 'allProduct'])->name("allProduct");
-    // Route::get('/showEditProduct/{id}',  [ProductController::class, 'showEditProduct'])->name("showEditProduct");
-    // Route::post('/updateProduct/{id}',  [ProductController::class, 'updateProduct'])->name("updateProduct");
-    // Route::get('/deleteProduct/{id}',  [ProductController::class, 'deleteProduct'])->name("deleteProduct");
+    Route::get('/addProduct', 'addProduct')->name("addProduct");
+    // Route::post('/saveProduct',  'saveProduct')->name("saveProduct");
+    Route::get('/allProduct',  'allProduct')->name("allProduct");
+    // Route::get('/showEditProduct/{id}',  'showEditProduct')->name("showEditProduct");
+    // Route::post('/updateProduct/{id}', 'updateProduct')->name("updateProduct");
+    // Route::get('/deleteProduct/{id}',  'deleteProduct')->name("deleteProduct");
 
 });
+
+
+
 
 
 

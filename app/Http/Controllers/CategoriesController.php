@@ -10,13 +10,15 @@ use Session;
 
 class CategoriesController extends Controller
 {
-    //
+    // Afficher le formulaire d'enregistrement des catégories
 
     public function addCategorie(){
         return view('layouts.layouts_admin.categories.addCategorie');
     }
 
-    //
+
+
+    // Enregistrer des categories dans la bd
 
     public function saveCategorie(Request $request)
     {
@@ -25,39 +27,61 @@ class CategoriesController extends Controller
             'imageCategorie' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'nomCategorie' => 'required|max:255',
         ]);
-    
-        // Gestion de l'image
-        $image = $request->file('imageCategorie');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('images/categories'), $imageName);
-    
-        $Categorie = new Categorie();
+
+        $nomCategorie = $request->input('nomCategorie');
 
 
-        $Categorie->categorie_image = $imageName;
-        $Categorie->categorie_name = $request->input('nomCategorie');
+        // Vérifier si le slug crée existe déjà dans la bb
+
+        $slugExist = Categorie::where('slug',$nomCategorie)->first();
+
         
     
-        $Categorie->save();
+       if($slugExist==true){
 
-        session()->flash('success', 'Categorie enregistrée avec succès !');
-    
+        session()->flash('erreur', 'La catégorie saisie exite déjà !');
+     
         return redirect('admin/dashboard/categories/addCategorie');
+
+       }
+
+       else {
+        
+
+         // Gestion de l'image
+         $image = $request->file('imageCategorie');
+         $imageName = time().'.'.$image->getClientOriginalExtension();
+         $image->move(public_path('images/categories'), $imageName);
+     
+         $Categorie = new Categorie();
+ 
+ 
+         $Categorie->categorie_image = $imageName;
+         $Categorie->categorie_name = $nomCategorie;
+         $Categorie->slug = strtolower(str_replace('','-',$nomCategorie));
+         
+     
+         $Categorie->save();
+ 
+         session()->flash('success', 'Categorie enregistrée avec succès !');
+     
+         return redirect('admin/dashboard/categories/addCategorie');
+       }
     }
 
 
 
-     //
+    // Afficher toutes les categories présentes dans la bd
 
     public function allCategorie(){
 
-        $Categorie = Categorie::get();
+        $Categorie = Categorie::latest()->get();
 
         return view('layouts.layouts_admin.categories.allCategorie')->with('Categorie', $Categorie);
     }
 
 
-        //
+    // Afficher le formulaire pour la modification des données de la bd
 
     public function showEditCategorie($id) {
             // dd($id);   
@@ -70,18 +94,21 @@ class CategoriesController extends Controller
    }
 
        
-   //
+   // Enregistrer les données modifiées dans la bd
+
     public function  updateCategorie(Request $request, $id){
 
     $request->validate([
         'imageCategorie' => 'image|mimes:jpeg,png,jpg,gif,svg',
-        'nomCategorie' => 'required|max:255',
+        'nomCategorie' => 'required|unique:categories|max:255',
     ]);
 
     $Categorie = Categorie::findOrFail($id);
 
 
     $Categorie->categorie_name = $request->input('nomCategorie');
+    $Categorie->slug = strtolower(str_replace('','-',$request->input('nomCategorie')));
+
 
         if ($request->hasFile('imageCategorie')) {
             $image = $request->file('imageCategorie');
@@ -101,7 +128,7 @@ class CategoriesController extends Controller
         
             
 
-     //
+    // Supprimer une catégorie
 
     public function deleteCategorie($id)
      {

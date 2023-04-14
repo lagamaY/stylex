@@ -69,7 +69,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="index.html" class="menu-link">
+              <a href="{{route('dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -139,71 +139,93 @@
               </ul>
             </li>
 
-
+            <!-- Categorie & Sous categorie -->
             <li class="menu-header small text-uppercase">
-              <!-- <span class="menu-header-text">Pages</span> -->
+              <span class="menu-header-text">Categorie &amp; Sous categorie</span>
             </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Categories</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{route('ajoutCategorie')}}" class="menu-link">
-                    <div data-i18n="Account">Ajouter</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{route('allCategorie')}}" class="menu-link">
-                    <div data-i18n="Notifications">Voir</div>
-                  </a>
-                </li>
-                <!-- <li class="menu-item">
-                  <a href="pages-account-settings-connections.html" class="menu-link">
-                    <div data-i18n="Connections">Connections</div>
-                  </a>
-                </li> -->
-              </ul>
-            </li>
+                  <!-- Categorie  -->
+                  <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                      <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                      <div data-i18n="Account Settings">Categories</div>
+                    </a>
+                    <ul class="menu-sub">
+                      <li class="menu-item">
+                        <a href="{{route('ajoutCategorie')}}" class="menu-link">
+                          <div data-i18n="Account">Ajouter</div>
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="{{route('allCategorie')}}" class="menu-link">
+                          <div data-i18n="Notifications">Voir</div>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
 
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="Misc">Tailles</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{route('ajoutTaille')}}" class="menu-link">
-                    <div data-i18n="Error">Ajouter</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{route('allTaille')}}" class="menu-link">
-                    <div data-i18n="Under Maintenance">Voir</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
+                  <!-- Sous categorie -->
+                  <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                      <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                      <div data-i18n="Account Settings">Sous Categories</div>
+                    </a>
+                    <ul class="menu-sub">
+                      <li class="menu-item">
+                        <a href="{{route('ajoutSousCategorie')}}" class="menu-link">
+                          <div data-i18n="Account">Ajouter</div>
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="{{route('allSousCategorie')}}" class="menu-link">
+                          <div data-i18n="Notifications">Voir</div>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
 
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="Misc">Couleurs</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{route('ajoutCouleur')}}" class="menu-link">
-                    <div data-i18n="Error">Ajouter</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{route('allCouleur')}}" class="menu-link">
-                    <div data-i18n="Under Maintenance">Voir</div>
-                  </a>
-                </li>
-              </ul>
+             <!-- Options du produit -->
+             <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Options du produit</span>
             </li>
+                  <!-- Tailles -->
+                  <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                      <i class="menu-icon tf-icons bx bx-box"></i>
+                      <div data-i18n="Misc">Tailles</div>
+                    </a>
+                    <ul class="menu-sub">
+                      <li class="menu-item">
+                        <a href="{{route('ajoutTaille')}}" class="menu-link">
+                          <div data-i18n="Error">Ajouter</div>
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="{{route('allTaille')}}" class="menu-link">
+                          <div data-i18n="Under Maintenance">Voir</div>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <!-- Couleurs -->
+                  <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                      <i class="menu-icon tf-icons bx bx-box"></i>
+                      <div data-i18n="Misc">Couleurs</div>
+                    </a>
+                    <ul class="menu-sub">
+                      <li class="menu-item">
+                        <a href="{{route('ajoutCouleur')}}" class="menu-link">
+                          <div data-i18n="Error">Ajouter</div>
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="{{route('allCouleur')}}" class="menu-link">
+                          <div data-i18n="Under Maintenance">Voir</div>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
             <!-- <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
@@ -227,7 +249,7 @@
                 </li>
               </ul>
             </li> -->
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                 <div data-i18n="Misc">Produits</div>
@@ -244,18 +266,25 @@
                   </a>
                 </li>
               </ul>
-            </li>
-            <!-- Components -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
-            <!-- Cards -->
-            <li class="menu-item">
-              <a href="cards-basic.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">Cards</div>
-              </a>
-            </li>
+            </li> -->
+            <!-- Produits -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Produits</span></li>
+                <!-- Ajouter -->
+                <li class="menu-item">
+                  <a href="{{route('addProduct')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-collection"></i>
+                    <div data-i18n="Basic">Ajouter</div>
+                  </a>
+                </li>
+                <!-- Voir -->
+                <li class="menu-item">
+                  <a href="{{route('allProduct')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-collection"></i>
+                    <div data-i18n="Basic">Voir</div>
+                  </a>
+                </li>
             <!-- User interface -->
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="javascript:void(0)" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div data-i18n="User interface">User interface</div>
@@ -357,10 +386,10 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
 
             <!-- Extended components -->
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="javascript:void(0)" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-copy"></i>
                 <div data-i18n="Extended UI">Extended UI</div>
@@ -384,12 +413,12 @@
                 <i class="menu-icon tf-icons bx bx-crown"></i>
                 <div data-i18n="Boxicons">Boxicons</div>
               </a>
-            </li>
+            </li> -->
 
-            <!-- Forms & Tables -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
+            <!-- Commandes -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Commandes</span></li>
             <!-- Forms -->
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div data-i18n="Form Elements">Form Elements</div>
@@ -424,14 +453,34 @@
                   </a>
                 </li>
               </ul>
-            </li>
-            <!-- Tables -->
-            <li class="menu-item">
-              <a href="tables-basic.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Tables</div>
-              </a>
-            </li>
+            </li> -->
+            <!-- En cours -->
+                <li class="menu-item">
+                  <a href="tables-basic.html" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-table"></i>
+                    <div data-i18n="Tables">En cours</div>
+                  </a>
+                </li>
+
+                 <!-- Terminées -->
+                <li class="menu-item">
+                  <a href="tables-basic.html" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-table"></i>
+                    <div data-i18n="Tables">Terminées</div>
+                  </a>
+                </li>
+
+                 <!-- Annulées -->
+                <li class="menu-item">
+                  <a href="tables-basic.html" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-table"></i>
+                    <div data-i18n="Tables">Annulées</div>
+                  </a>
+                </li>
+
+
+
+
             <!-- Misc -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
             <li class="menu-item">

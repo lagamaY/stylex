@@ -6,7 +6,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tailles</span>  </h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Couleurs</span>  </h4>
 
               
               @if (session()->has('success'))
@@ -15,13 +15,20 @@
                     </div>
                @endif
 
+
+               @if (session()->has('erreur'))
+                    <div class="alert alert-danger">
+                           {!! session('erreur') !!}
+                    </div>
+               @endif
+               
               <div class="row">
 
               <!-- Custom file input -->
               <div class="row">
                 <div class="col-12">
                   <div class="card">
-                    <h5 class="card-header">Ajouter une taille</h5>
+                    <h5 class="card-header">Ajouter des couleurs</h5>
 
                     <div class="card-body demo-vertical-spacing demo-only-element">
 
@@ -33,16 +40,19 @@
                         <label class="input-group-text" for="imageCategorie">Charger</label>
                       </div> <br/>  -->
 
-                      <div class="input-group">
+                      <div class="card-body">
                        <input
                           type="text"
                           class="form-control"
                           id="nomCouleur"
                           name="nomCouleur"
-                          placeholder="Vous pouvez entrer plusieurs couleurs séparées par des virgules."
+                          placeholder="Blanc, rouge, vert...."
                           aria-describedby="floatingInputHelp"
                         />
-                        <label for="nomCouleur"></label>
+                        <!-- <label for="nomCouleur"></label> -->
+                        <div id="nomCouleur" class="form-text">
+                        Vous pouvez entrer plusieurs couleurs séparées par des virgules.
+                        </div>
                       </div> <br/>
 
                       <button type="submit" class="btn btn-primary">Enregistrer</button>

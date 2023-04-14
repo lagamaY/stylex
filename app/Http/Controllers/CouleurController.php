@@ -7,7 +7,7 @@ use App\Models\Couleur;
 
 class CouleurController extends Controller
 {
-    //
+    // Afficher la page du formulaire
 
     public function addCouleur(){
 
@@ -15,7 +15,7 @@ class CouleurController extends Controller
     }
 
 
-    //
+    // Enregistrer une couleur dans la bd
     public function saveCouleur(Request $request)
     {
         $request->validate([

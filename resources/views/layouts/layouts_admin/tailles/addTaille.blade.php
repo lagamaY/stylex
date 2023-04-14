@@ -21,7 +21,7 @@
               <div class="row">
                 <div class="col-12">
                   <div class="card">
-                    <h5 class="card-header">Ajouter une taille</h5>
+                    <h5 class="card-header">Ajouter des tailles</h5>
 
                     <div class="card-body demo-vertical-spacing demo-only-element">
 
@@ -33,16 +33,20 @@
                         <label class="input-group-text" for="imageCategorie">Charger</label>
                       </div> <br/>  -->
 
-                      <div class="input-group">
+                      <div class="card-body">
+                      <!-- <label for="nomTaille">Ajoutez des tailles</label> -->
                        <input
                           type="text"
                           class="form-control"
                           id="nomTaille"
                           name="nomTaille"
-                          placeholder="Vous pouvez entrer plusieurs tailles séparées par des virgules."
+                          placeholder="S, M, L, 36, 40..."
                           aria-describedby="floatingInputHelp"
                         />
-                        <label for="nomTaille"></label>
+                        
+                        <div id="nomTaille" class="form-text">
+                        Vous pouvez entrer plusieurs tailles séparées par des virgules.
+                        </div>
                       </div> <br/>
 
                       <button type="submit" class="btn btn-primary">Enregistrer</button>
