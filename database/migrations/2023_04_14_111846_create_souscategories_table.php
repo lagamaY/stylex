@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('nomSousCategorie');
             $table->string('slug');
-            $table->bigInteger('id_categorie');
-            $table->string('nom_categorie');
+           
+            $table->unsignedBigInteger('id_categorie'); // clé étrangère
+            $table->foreign('id_categorie')->references('id')->on('categories');
+
             $table->integer('nb_produit')->default(0);
             $table->timestamps();
         });

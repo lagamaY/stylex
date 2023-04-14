@@ -28,12 +28,18 @@ class CategoriesController extends Controller
             'nomCategorie' => 'required|max:255',
         ]);
 
-        $nomCategorie = $request->input('nomCategorie');
+        // $nomCategorie = $request->input('nomCategorie');
+
+        $Categorie = new Categorie();
+
+        $Categorie->categorie_name = $request->input('nomCategorie');
+
+        $Categorie->slug = strtolower(str_replace('','-',$Categorie->categorie_name));
 
 
         // Vérifier si le slug crée existe déjà dans la bb
 
-        $slugExist = Categorie::where('slug',$nomCategorie)->first();
+        $slugExist = Categorie::where('slug',$Categorie->slug)->first();
 
         
     
@@ -53,12 +59,8 @@ class CategoriesController extends Controller
          $imageName = time().'.'.$image->getClientOriginalExtension();
          $image->move(public_path('images/categories'), $imageName);
      
-         $Categorie = new Categorie();
- 
- 
+
          $Categorie->categorie_image = $imageName;
-         $Categorie->categorie_name = $nomCategorie;
-         $Categorie->slug = strtolower(str_replace('','-',$nomCategorie));
          
      
          $Categorie->save();

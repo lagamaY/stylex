@@ -15,6 +15,14 @@
                     </div>
                @endif
 
+
+               @if (session()->has('erreur'))
+                    <div class="alert alert-danger">
+                           {!! session('erreur') !!}
+                    </div>
+               @endif
+
+
               <div class="row">
 
               <!-- Custom file input -->
