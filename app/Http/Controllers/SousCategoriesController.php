@@ -84,17 +84,18 @@ class SousCategoriesController extends Controller
 
 
 
-
-
+   // Affichage de toutes les sous catégories
 
 
     public function allSousCategorie(){
 
-        // $Categorie = Categorie::get();
+        $Categorie = Categorie::latest()->get();  
 
+        $Souscategorie = Souscategorie::get();
         // return view('layouts.layouts_admin.categories.allCategorie')->with('Categorie', $Categorie);
 
-        return view('layouts.layouts_admin.souscategories.allSousCategorie');
+        return view('layouts.layouts_admin.souscategories.allSousCategorie')->with('Categorie', $Categorie)
+                                                                            ->with('Categorie', $Categorie);
 
     }
 }
