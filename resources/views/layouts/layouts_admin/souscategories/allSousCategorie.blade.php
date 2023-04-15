@@ -31,18 +31,18 @@
                     <tbody class="table-border-bottom-0">
 
                    
-
+                    @foreach($Souscategorie as $item)
                       <tr>
+                     
+                        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>{{$item->id}}</strong></td>
 
-                        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>1</strong></td>
+                        <td>{{$item->nomSousCategorie}}</td>
 
-                        <td>Pantalon</td>
+                        <td>{{$item->Categorie->categorie_name}}</td>
 
-                        <td>Vêtements</td>
+                        <td>{{$item->nb_produit}}</td>
 
-                        <td>100</td>
-
-                        
+                      
 
                         <!-- Actions -->
                         <td>
@@ -63,7 +63,7 @@
 
 
                       </tr>
-
+                      @endforeach
                     </tbody>
                   </table>
                 </div>

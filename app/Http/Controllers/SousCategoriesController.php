@@ -107,7 +107,7 @@ class SousCategoriesController extends Controller
         // return view('layouts.layouts_admin.categories.allCategorie')->with('Categorie', $Categorie);
 
         return view('layouts.layouts_admin.souscategories.allSousCategorie')->with('Categorie', $Categorie)
-                                                                            ->with('Categorie', $Categorie);
+                                                                            ->with('Souscategorie', $Souscategorie);
 
     }
 }

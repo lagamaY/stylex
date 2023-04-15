@@ -9,5 +9,11 @@ class Souscategorie extends Model
 {
     use HasFactory;
 
+
+    public function categorie()
+    {
+        return $this->belongsTo(Categorie::class, 'id_categorie');
+    }
+
     
 }
