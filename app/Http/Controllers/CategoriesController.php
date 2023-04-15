@@ -10,7 +10,9 @@ use Session;
 
 class CategoriesController extends Controller
 {
-    // Afficher le formulaire d'enregistrement des catégories
+
+
+// Afficher le formulaire d'enregistrement des catégories
 
     public function addCategorie(){
         return view('layouts.layouts_admin.categories.addCategorie');
@@ -18,7 +20,7 @@ class CategoriesController extends Controller
 
 
 
-    // Enregistrer des categories dans la bd
+// Enregistrer des categories dans la bd
 
     public function saveCategorie(Request $request)
     {
@@ -41,7 +43,6 @@ class CategoriesController extends Controller
 
         $slugExist = Categorie::where('slug',$Categorie->slug)->first();
 
-        
     
        if($slugExist==true){
 
@@ -52,7 +53,6 @@ class CategoriesController extends Controller
        }
 
        else {
-        
 
          // Gestion de l'image
          $image = $request->file('imageCategorie');
@@ -69,11 +69,15 @@ class CategoriesController extends Controller
      
          return redirect('admin/dashboard/categories/addCategorie');
        }
+
+
+
+
     }
 
 
 
-    // Afficher toutes les categories présentes dans la bd
+// Afficher toutes les categories présentes dans la bd
 
     public function allCategorie(){
 
@@ -83,7 +87,7 @@ class CategoriesController extends Controller
     }
 
 
-    // Afficher le formulaire pour la modification des données de la bd
+// Afficher le formulaire pour la modification des données de la bd
 
     public function showEditCategorie($id) {
             // dd($id);   
@@ -95,8 +99,9 @@ class CategoriesController extends Controller
                 
    }
 
+
        
-   // Enregistrer les données modifiées dans la bd
+// Enregistrer les données modifiées dans la bd
 
     public function  updateCategorie(Request $request, $id){
 
@@ -112,18 +117,37 @@ class CategoriesController extends Controller
     $Categorie->slug = strtolower(str_replace('','-',$request->input('nomCategorie')));
 
 
-        if ($request->hasFile('imageCategorie')) {
-            $image = $request->file('imageCategorie');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images/categories'), $imageName);
-            $Categorie->categorie_image = $imageName;
-        }
+        // Vérifier si le slug crée existe déjà dans la bb
 
-        $Categorie->save();
+        $slugExist = Categorie::where('slug',$Categorie->slug)->first();
+
+    
+       if($slugExist==true){
+
+        session()->flash('erreur', 'La catégorie saisie exite déjà !');
+     
+        return redirect('admin/dashboard/categories/addCategorie');
+
+       }
+
+       else{
+
+        // Gestion de l'image
+        $image = $request->file('imageCategorie');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images/categories'), $imageName);
+            
+       
+        $Categorie->categorie_image = $imageName;
+        $Categorie->update();
 
         session()->flash('success', 'Catégorie modifiée avec succès !');
 
         return redirect()->route('allCategorie');
+
+
+       }
+
 
     }
             

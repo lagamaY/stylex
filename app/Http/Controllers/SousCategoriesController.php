@@ -12,7 +12,9 @@ use App\Models\Categorie;
 
 class SousCategoriesController extends Controller
 {
-    // Affichage du formulaire d'enregistrement des sous catégories
+
+
+// Affichage du formulaire d'enregistrement des sous catégories
 
       public function addSousCategorie(){
 
@@ -22,81 +24,52 @@ class SousCategoriesController extends Controller
     }
 
 
-    // Enregistrer les sous catégories dans la bd
 
-      public function saveSousCategorie(Request $request){
-
-            $request -> validate([
-
-                'nomSousCategorie' => 'required | Max:225',
-                'sousCategorie_categorie_id' => 'required'
-            ]);
-
-            $Souscategorie = new Souscategorie();
-
-            $Souscategorie->nomSousCategorie = $request->input('nomSousCategorie');
-            $Souscategorie->id_categorie = $request->input('sousCategorie_categorie_id');
-            $sousCategorie_categorie_id = $Souscategorie->id_categorie;
-
-            $Souscategorie->slug = strtolower(str_replace('','-',$Souscategorie->nomSousCategorie));
+// Enregistrer les sous catégories dans la bd
 
 
+   public function saveSousCategorie(Request $request){
 
-            // Vérifier si le slug et l'id de la catégorie sélectionnée existent déjà dans la bb
-    
-            $slugExist = Souscategorie::where('slug',$Souscategorie->slug)->first();
-
-            $idCategorieExist = Souscategorie::where('id_categorie',$sousCategorie_categorie_id)->first();
-    
-            // dd($idCategorieExist);
-        
-           if($slugExist==true){
-
-             if($idCategorieExist==true){
-
-              $Categorie = Categorie::latest()->get();
-
-              session()->flash('erreur', 'Cette sous catégorie existe déjà dans la catégorie choisie');
-  
-              return redirect('admin/dashboard/sous-categorie/addSousCategorie')->with('Categorie', $Categorie);
-
-             }
-             else{
-
-              $Souscategorie->save();
+    $request->validate([
+        'nomSousCategorie' => 'required | Max:225',
+        'sousCategorie_categorie_id' => 'required'
+    ]);
 
 
-              $Categorie = Categorie::latest()->get();
+    $nomSousCategorie = $request->input('nomSousCategorie');
+    $sousCategorie_categorie_id = $request->input('sousCategorie_categorie_id');
 
-              session()->flash('success', 'Sous Categorie enregistrée avec succès !');
-
-              return redirect('admin/dashboard/sous-categorie/addSousCategorie')->with('Categorie', $Categorie);
-
-             }
-
-
-    
-           }
-           else{
-
-              $Souscategorie->save();
-
-
-              $Categorie = Categorie::latest()->get();
-
-              session()->flash('success', 'Sous Categorie enregistrée avec succès !');
-
-              return redirect('admin/dashboard/sous-categorie/addSousCategorie')->with('Categorie', $Categorie);
-
-           }
-            
-
-
-      }
+    $sousCategorie = new Souscategorie();
+    $sousCategorie->nomSousCategorie = $nomSousCategorie;
+    $sousCategorie->id_categorie = $sousCategorie_categorie_id;
+    $sousCategorie->slug = strtolower(str_replace('','-',$nomSousCategorie));
 
 
 
-   // Affichage de toutes les sous catégories
+    // Vérifier si le slug de la sous-catégorie existe déjà dans la même catégorie
+    $sousCategorieSlugExist = Souscategorie::where('slug', $sousCategorie->slug)
+                                      ->where('id_categorie', $sousCategorie_categorie_id)
+                                      ->first();
+
+    if ($sousCategorieSlugExist) {
+        $categories = Categorie::latest()->get();
+        session()->flash('erreur', 'Cette sous-catégorie existe déjà dans la catégorie choisie');
+        return redirect('admin/dashboard/sous-categorie/addSousCategorie')->with('Categorie', $categories);
+    }
+
+    // Enregistrer la sous-catégorie
+
+    $sousCategorie->save();
+
+    $categories = Categorie::latest()->get();
+    session()->flash('success', 'Sous-catégorie enregistrée avec succès !');
+    return redirect('admin/dashboard/sous-categorie/addSousCategorie')->with('Categorie', $categories);
+}
+
+
+
+
+// Affichage de toutes les sous catégories
 
 
     public function allSousCategorie(){
@@ -113,7 +86,7 @@ class SousCategoriesController extends Controller
 
 
 
-   // Afficher le formulaire pour la modification des données saisies
+// Afficher le formulaire pour la modification des données saisies
 
     public function showEditSousCategorie($id)
         {
@@ -123,37 +96,63 @@ class SousCategoriesController extends Controller
             $Categorie = Categorie::latest()->get();
     
             return view('layouts.layouts_admin.souscategories.showEditSousCategorie')->with('Categorie', $Categorie)
-            ->with('Souscategorie', $Souscategorie);
+                                                                              ->with('Souscategorie', $Souscategorie);
     
             
         }
 
-  // Envoie du formulaire de modification des données du formulaire
+// Envoie du formulaire de modification des données du formulaire
 
      public function updateSousCategorie(Request $request, $id)
         {
-            $request->validate([
-              'nomSousCategorie' => 'required | Max:225',
-              'sousCategorie_categorie_id' => 'required'
-            ]);
-        
-            $Souscategorie = Souscategorie::findOrFail($id);
-        
-            $Souscategorie->nomSousCategorie = $request->input('nomSousCategorie');
-            $Souscategorie->id_categorie = $request->input('sousCategorie_categorie_id');
-            $sousCategorie_categorie_id = $Souscategorie->id_categorie;
 
-            $Souscategorie->slug = strtolower(str_replace('','-',$Souscategorie->nomSousCategorie));
-        
-        
-            $Souscategorie->update();
+          $request->validate([
+            'nomSousCategorie' => 'required | Max:225',
+            'sousCategorie_categorie_id' => 'required'
+        ]);
+    
+    
+        $nomSousCategorie = $request->input('nomSousCategorie');
+        $sousCategorie_categorie_id = $request->input('sousCategorie_categorie_id');
+    
 
-            $Categorie = Categorie::latest()->get();
-        
-            return view('layouts.layouts_admin.souscategories.allSousCategorie')->with('Categorie', $Categorie)
-                                                                            ->with('Souscategorie', $Souscategorie);
+        // Vérifier si la sous-catégorie existe déjà dans la même catégorie
+        $sousCategorieSlugExist = Souscategorie::where('slug', strtolower(str_replace('','-',$nomSousCategorie)))
+                                          ->where('id_categorie', $sousCategorie_categorie_id)
+                                          ->where('id', '!=', $id) // Exclure la sous-catégorie en cours de modification
+                                          ->first();
+
+    
+        if ($sousCategorieSlugExist) {
+            $categories = Categorie::latest()->get();
+            session()->flash('erreur', 'Cette sous-catégorie existe déjà dans la catégorie choisie');
+            return redirect()->route('showEditSousCategorie', ['id'=>$id])->with('Categorie', $categories);
+        }
+    
+          // Mettre à jour la sous-catégorie
+          $sousCategorie = Souscategorie::find($id);
+
+          $sousCategorie->nomSousCategorie = $nomSousCategorie;
+          $sousCategorie->id_categorie = $sousCategorie_categorie_id;
+          $sousCategorie->slug = strtolower(str_replace('','-',$nomSousCategorie));
+      
+          $sousCategorie->update();
+
+          // Passer les paramètres nécessaire à l'affichage de la page allsouscategorie
+          $categories = Categorie::latest()->get();
+          $SousCategorie = Souscategorie::get();
+
+          session()->flash('success', 'Sous-catégorie modifiée avec succès !');
+          return redirect()->route('allSousCategorie')->with('Categorie', $categories)
+                                                      ->with('SousCategorie', $SousCategorie);
+
+
+
         }
 
+
+
+// Supprimer une sous catégorie de la bd
 
      public function deleteSousCategorie($id)
         {
