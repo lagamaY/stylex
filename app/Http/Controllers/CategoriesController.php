@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Categorie;
+use App\Models\Categorie; 
+use App\Models\Souscategorie;
 
 use Session;
 
@@ -107,43 +108,66 @@ class CategoriesController extends Controller
 
     $request->validate([
         'imageCategorie' => 'image|mimes:jpeg,png,jpg,gif,svg',
-        'nomCategorie' => 'required|unique:categories|max:255',
+        'nomCategorie' => 'required|max:255',
     ]);
 
-    $Categorie = Categorie::findOrFail($id);
-
-
-    $Categorie->categorie_name = $request->input('nomCategorie');
-    $Categorie->slug = strtolower(str_replace('','-',$request->input('nomCategorie')));
 
 
         // Vérifier si le slug crée existe déjà dans la bb
 
-        $slugExist = Categorie::where('slug',$Categorie->slug)->first();
+        $slugCategorieExist = Categorie::where('slug',strtolower(str_replace('','-',$request->input('nomCategorie'))))
+                                ->where('id', '!=', $id)
+                                ->first();
 
     
-       if($slugExist==true){
+       if($slugCategorieExist==true){
 
+        $Categorie = Categorie::find($id);
         session()->flash('erreur', 'La catégorie saisie exite déjà !');
      
-        return redirect('admin/dashboard/categories/addCategorie');
+        return redirect()->route('showEditCategorie', ['id'=>$id])->with('Categorie', $Categorie);
 
        }
 
        else{
 
-        // Gestion de l'image
-        $image = $request->file('imageCategorie');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('images/categories'), $imageName);
+        $Categorie = Categorie::find($id);
+
+
+
+            if($request->file('imageCategorie')){
+
+                        // Gestion de l'image
+                $image = $request->file('imageCategorie');
+                $imageName = time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('images/categories'), $imageName);
+
+                $Categorie->categorie_name = $request->input('nomCategorie');
+                $Categorie->categorie_image = $imageName;
+                $Categorie->slug = strtolower(str_replace('','-',$request->input('nomCategorie')));
+                $Categorie->update();
+
+                // Passer les paramètres nécessaire à l'affichage de la page allsouscategorie
+
+                $categorie = Categorie::get();
+                session()->flash('success', 'Catégorie modifiée avec succès !');
+
+                return redirect()->route('allCategorie')->with('Categorie', $categorie);
+
+            }else{
+
+                $Categorie->categorie_name = $request->input('nomCategorie');
+                $Categorie->slug = strtolower(str_replace('','-',$request->input('nomCategorie')));
+                $Categorie->update();
+
+                 // Passer les paramètres nécessaire à l'affichage de la page allsouscategorie
+
+                $categorie = Categorie::get();
+                session()->flash('success', 'Catégorie modifiée avec succès !');
+
+                return redirect()->route('allCategorie')->with('Categorie', $categorie);
+            }
             
-       
-        $Categorie->categorie_image = $imageName;
-        $Categorie->update();
-
-        session()->flash('success', 'Catégorie modifiée avec succès !');
-
-        return redirect()->route('allCategorie');
 
 
        }
@@ -154,16 +178,32 @@ class CategoriesController extends Controller
         
             
 
-    // Supprimer une catégorie
+// Supprimer une catégorie
 
     public function deleteCategorie($id)
      {
          
+        // Récupérer la catégorie à supprimer
          $Categorie = Categorie::findOrFail($id);
+
+        // Récupérer les sous-catégories liées à cette catégorie
+         $sousCategories = Souscategorie::where('id_categorie', $Categorie->id)->get();
+
+        // Supprimer les sous-catégories
+            foreach ($sousCategories as $sousCategorie) {
+                $sousCategorie->delete();
+            }
+        // Supprimer la catégorie
          $Categorie->delete();
 
-        
+        // Passer les paramètres nécessaire à l'affichage de la page allsouscategorie
+
+         $categorie = Categorie::get();
+
+         session()->flash('success', 'Catégorie supprimée avec succès !');
  
-        return redirect()->route('allCategorie');
+        return redirect()->route('allCategorie')->with('Categorie', $categorie);
+
+
      }
 }
