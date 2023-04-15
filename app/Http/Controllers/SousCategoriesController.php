@@ -77,6 +77,18 @@ class SousCategoriesController extends Controller
 
     
            }
+           else{
+
+              $Souscategorie->save();
+
+
+              $Categorie = Categorie::latest()->get();
+
+              session()->flash('success', 'Sous Categorie enregistrée avec succès !');
+
+              return redirect('admin/dashboard/sous-categorie/addSousCategorie')->with('Categorie', $Categorie);
+
+           }
             
 
 
