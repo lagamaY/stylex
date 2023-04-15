@@ -51,10 +51,10 @@
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu"> 
-                              <a class="dropdown-item" href="  "
+                              <a class="dropdown-item" href="{{route('showEditSousCategorie', ['id'=> $item->id] )}}"
                                 ><i class="bx bx-edit-alt me-2"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="  "
+                              <a class="dropdown-item" href="{{route('deleteSousCategorie', ['id'=> $item->id] )}}"
                                 ><i class="bx bx-trash me-2"></i> Delete</a
                               >
                             </div>

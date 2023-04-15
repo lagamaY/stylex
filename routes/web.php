@@ -111,9 +111,9 @@ Route::prefix('admin/dashboard/sous-categorie')->group(function () {
     Route::get('/addSousCategorie',  [SousCategoriesController::class, 'addSousCategorie'])->name("ajoutSousCategorie");
     Route::post('/saveSousCategorie',  [SousCategoriesController::class, 'saveSousCategorie'])->name("saveSousCategorie");
     Route::get('/allSousCategorie',  [SousCategoriesController::class, 'allSousCategorie'])->name("allSousCategorie");
-    // Route::get('/showEditSousCategorie/{id}',  [SousCategoriesController::class, 'showEditSousCategorie'])->name("showEditSousCategorie");
-    // Route::post('/updateSousCategorie/{id}',  [SousCategoriesController::class, 'updateSousCategorie'])->name("updateSousCategorie");
-    // Route::get('/deleteSousCategorie/{id}',  [SousCategoriesController::class, 'deleteSousCategorie'])->name("deleteSousCategorie");
+    Route::get('/showEditSousCategorie/{id}',  [SousCategoriesController::class, 'showEditSousCategorie'])->name("showEditSousCategorie");
+    Route::post('/updateSousCategorie/{id}',  [SousCategoriesController::class, 'updateSousCategorie'])->name("updateSousCategorie");
+    Route::get('/deleteSousCategorie/{id}',  [SousCategoriesController::class, 'deleteSousCategorie'])->name("deleteSousCategorie");
 
 });
 

@@ -16,6 +16,7 @@ class CouleurController extends Controller
 
 
     // Enregistrer une couleur dans la bd
+    
     public function saveCouleur(Request $request)
     {
         $request->validate([

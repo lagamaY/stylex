@@ -104,10 +104,75 @@ class SousCategoriesController extends Controller
         $Categorie = Categorie::latest()->get();  
 
         $Souscategorie = Souscategorie::get();
-        // return view('layouts.layouts_admin.categories.allCategorie')->with('Categorie', $Categorie);
+        
 
         return view('layouts.layouts_admin.souscategories.allSousCategorie')->with('Categorie', $Categorie)
                                                                             ->with('Souscategorie', $Souscategorie);
 
     }
+
+
+
+   // Afficher le formulaire pour la modification des données saisies
+
+    public function showEditSousCategorie($id)
+        {
+
+            $Souscategorie = Souscategorie::find($id);
+    
+            $Categorie = Categorie::latest()->get();
+    
+            return view('layouts.layouts_admin.souscategories.showEditSousCategorie')->with('Categorie', $Categorie)
+            ->with('Souscategorie', $Souscategorie);
+    
+            
+        }
+
+  // Envoie du formulaire de modification des données du formulaire
+
+     public function updateSousCategorie(Request $request, $id)
+        {
+            $request->validate([
+              'nomSousCategorie' => 'required | Max:225',
+              'sousCategorie_categorie_id' => 'required'
+            ]);
+        
+            $Souscategorie = Souscategorie::findOrFail($id);
+        
+            $Souscategorie->nomSousCategorie = $request->input('nomSousCategorie');
+            $Souscategorie->id_categorie = $request->input('sousCategorie_categorie_id');
+            $sousCategorie_categorie_id = $Souscategorie->id_categorie;
+
+            $Souscategorie->slug = strtolower(str_replace('','-',$Souscategorie->nomSousCategorie));
+        
+        
+            $Souscategorie->update();
+
+            $Categorie = Categorie::latest()->get();
+        
+            return view('layouts.layouts_admin.souscategories.allSousCategorie')->with('Categorie', $Categorie)
+                                                                            ->with('Souscategorie', $Souscategorie);
+        }
+
+
+     public function deleteSousCategorie($id)
+        {
+          
+          $Souscategorie = Souscategorie::findOrFail($id);
+          $Souscategorie->delete();
+
+          $Categorie = Categorie::latest()->get();
+
+          session()->flash('success', 'La sous Categorie a été supprimé avec succès !');
+
+          return redirect()->route('allSousCategorie')->with('Categorie', $Categorie)
+                                                      ->with('Souscategorie', $Souscategorie);
+        
+
+
+      }
+
+
+
+
 }
