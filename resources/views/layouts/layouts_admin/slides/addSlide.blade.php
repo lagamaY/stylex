@@ -15,6 +15,12 @@
                     </div>
                @endif
 
+               @if (session()->has('alerte'))
+                    <div class="alert alert-warning" role="alert">
+                           {!! session('alerte') !!}
+                    </div>
+               @endif
+
               <div class="row">
 
               <!-- Custom file input -->
@@ -33,6 +39,18 @@
                       <div class="input-group">
                         <input type="file" class="form-control" id="imageSlide" name="imageSlide" accept="image/jpeg, image/png, image/gif" />
                         <label class="input-group-text" for="imageSlide">Charger</label>
+                      </div> <br/>
+
+                      <div class="input-group">
+                       <input
+                          type="text"
+                          class="form-control"
+                          id="urlSlide"
+                          name="urlSlide"
+                          placeholder="Entrez l'url de redirection de la slide ajoutée"
+                          aria-describedby="floatingInputHelp"
+                        />
+                        <label for="urlSlide"></label>
                       </div> <br/>
 
                       <button type="submit" class="btn btn-primary">Enregistrer</button>

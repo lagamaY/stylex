@@ -23,6 +23,7 @@
                       <tr>
                         <th>Id</th>
                         <th>Images</th>
+                        <th>Url</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -49,6 +50,8 @@
                             </li>
                           </ul>
                         </td>
+
+                        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>{{$item->url}}</strong></td>
 
 
                         <td>

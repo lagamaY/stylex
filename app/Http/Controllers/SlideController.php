@@ -24,19 +24,37 @@ class SlideController extends Controller
      {
          $request->validate([
            
-             'imageSlide' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-         
+             'imageSlide' => 'image|mimes:jpeg,png,jpg,gif,svg',
+             'urlSlide' => 'Max:255',
          ]);
+
+        //  Vérifier si l'image existe bien
      
+         if($request->file('imageSlide') == null){
+
+            session()->flash('alerte', 'Veuillez entrer une image de la slide que vous souhaitez afficher svp !'); 
+     
+            return redirect('admin/dashboard/slide/addSlide');
+         }
+
+        //  Vérifier si l'url existe bien
+         if($request->input('urlSlide') == null){
+
+            session()->flash('alerte', 'Veuillez entrer une url de la page que vous souhaitez afficher au clic sur la slide svp !'); 
+     
+            return redirect('admin/dashboard/slide/addSlide');
+         }
+
          // Gestion de l'image
          $image = $request->file('imageSlide');
          $imageName = time().'.'.$image->getClientOriginalExtension();
          $image->move(public_path('images/slides'), $imageName);
      
+        // créer et enregistrer les donnéés dans a table Slide
          $Slide = new Slide();
  
- 
          $Slide->Slide_image = $imageName;
+         $Slide->url = $request->input('urlSlide');
          
      
          $Slide->save();
@@ -48,19 +66,21 @@ class SlideController extends Controller
 
 
  
-     //
+    // Afficher toutes les slides enregistées
+
      public function allSlide(){
  
-         $Slide = Slide::get();
+         $Slide = Slide::latest()->get();
  
          return view('layouts.layouts_admin.slides.allSlide')->with('Slide', $Slide);
      }
  
  
+    // Afficher le formulaire pour la modification des données du formulaire
 
-    public function showEditSlide($id) {
+        public function showEditSlide($id) {
         // dd($id);   
-        $Slide = Slide::find($id);
+            $Slide = Slide::find($id);
        
     
         return view('layouts.layouts_admin.slides.showEditSlide')->with('Slide', $Slide);
@@ -74,22 +94,70 @@ class SlideController extends Controller
 
     $request->validate([
         'imageSlide' => 'image|mimes:jpeg,png,jpg,gif,svg',
-       
+        'urlSlide' => 'Max:255',
     ]);
 
-    $Slide = Slide::findOrFail($id);
 
 
+        //  Modifier l'url uniquement si l'image n'a pas été modifée
+     
+        if($request->file('imageSlide') == null){
+
+            $Slide = Slide::findOrFail($id);
     
+            $Slide->url = $request->input('urlSlide');
 
-        if ($request->hasFile('imageSlide')) {
+            $Slide->update();
+
+            session()->flash('success', ' Url de la slide modifiée avec succès !');
+
+            return redirect()->route('allSlide');
+     
+    
+         }
+
+        //  Modifier l'image uniquement si l'url n'a pas été modifée
+
+         if($request->input('urlSlide') == null){
+
+            $Slide = Slide::findOrFail($id);
+    
+             // Gestion de l'image
             $image = $request->file('imageSlide');
             $imageName = time().'.'.$image->getClientOriginalExtension();
             $image->move(public_path('images/slides'), $imageName);
-            $Slide->slide_image = $imageName;
-        }
 
-        $Slide->save();
+            $Slide->Slide_image = $imageName;
+
+            $Slide->update();
+
+            session()->flash('success', ' Image de la Slide modifiée avec succès !');
+
+            return redirect()->route('allSlide');
+         }
+
+
+         //  Si les deux champs du formulaire sont vides
+
+         if(($request->input('urlSlide') == null)&&($request->file('imageSlide') == null)){
+
+            session()->flash('alerte', 'Veuillez remplir les champs svp !'); 
+     
+            return redirect('admin/dashboard/slide/addSlide');
+         }
+
+
+        // Gestion de l'image
+         $image = $request->file('imageSlide');
+         $imageName = time().'.'.$image->getClientOriginalExtension();
+         $image->move(public_path('images/slides'), $imageName);
+
+         $Slide = Slide::findOrFail($id);
+    
+            $Slide->Slide_image = $imageName;
+            $Slide->url = $request->input('urlSlide');
+
+            $Slide->update();
 
         session()->flash('success', 'slide modifiée avec succès !');
 

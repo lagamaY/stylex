@@ -97,7 +97,7 @@ class CategoriesController extends Controller
         
             return view('layouts.layouts_admin.categories.showEditCategorie')->with('Categorie', $Categorie);
         
-                
+   
    }
 
 
