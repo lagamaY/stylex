@@ -98,7 +98,6 @@ class SlideController extends Controller
     ]);
 
 
-
         //  Modifier l'url uniquement si l'image n'a pas été modifée
      
         if($request->file('imageSlide') == null){
@@ -137,15 +136,6 @@ class SlideController extends Controller
          }
 
 
-         //  Si les deux champs du formulaire sont vides
-
-         if(($request->input('urlSlide') == null)&&($request->file('imageSlide') == null)){
-
-            session()->flash('alerte', 'Veuillez remplir les champs svp !'); 
-     
-            return redirect('admin/dashboard/slide/addSlide');
-         }
-
 
         // Gestion de l'image
          $image = $request->file('imageSlide');
@@ -166,7 +156,7 @@ class SlideController extends Controller
     }
 
    
-     //
+    // Supprimer la slide de la bd
 
      public function deleteSlide($id)
      {

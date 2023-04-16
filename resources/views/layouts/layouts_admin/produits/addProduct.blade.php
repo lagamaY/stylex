@@ -59,12 +59,9 @@
                       
                         >
                           <!-- <option selected>Open this select menu</option> -->
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                          @foreach($Taille as $item )
+                          <option value="{{$item->id}}">{{$item->taille}}</option>
+                          @endforeach
                         </select>
                         </div>
                       </div>
@@ -80,9 +77,9 @@
                           name="couleurs_produit"
                         >
                           <!-- <option selected>Open this select menu</option> -->
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                          @foreach($Couleur as $item )
+                          <option value="{{$item->id}}">{{$item->nomCouleur}}</option>
+                          @endforeach
                         </select>
                         </div>
                       </div>
@@ -104,7 +101,7 @@
                       </div>
 
                       <!-- Catégorie du produit -->
-                      <div class="mb-3 row">
+                      <!-- <div class="mb-3 row">
                       <label for="categorie_produit" class="col-md-2 col-form-label">Catégorie du produit</label>
                       <div class="col-md-10">
                         <select class="form-select" class="form-control" id="categorie_produit" name="categorie_produit" aria-label="Default select example">
@@ -112,6 +109,24 @@
                           <option value="1">One</option>
                           <option value="2">Two</option>
                           <option value="3">Three</option>
+                        </select>
+                        </div>
+                      </div> -->
+
+                       <!-- Catégories disponibles -->
+                      <div class="mb-3 row">
+                        <label for="categorie_produit" class="col-md-2 col-form-label">Catégorie du produit</label>
+                        <div class="col-md-10">
+                        <select
+                          multiple
+                          class="form-select"
+                          id="categorie_produit"
+                          name="categorie_produit"
+                        >
+                          <!-- <option selected>Open this select menu</option> -->
+                          @foreach($Categorie as $item )
+                          <option value="{{$item->id}}">{{$item->categorie_name}}</option>
+                          @endforeach
                         </select>
                         </div>
                       </div>
