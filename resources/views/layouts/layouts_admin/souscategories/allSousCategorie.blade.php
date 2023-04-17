@@ -54,7 +54,7 @@
                               <a class="dropdown-item" href="{{route('showEditSousCategorie', ['id'=> $item->id] )}}"
                                 ><i class="bx bx-edit-alt me-2"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="{{route('deleteSousCategorie', ['id'=> $item->id] )}}"
+                              <a class="dropdown-item" href="{{route('deleteSousCategorie', ['id'=> $item->id], $item->id_categorie  )}}"
                                 ><i class="bx bx-trash me-2"></i> Delete</a
                               >
                             </div>

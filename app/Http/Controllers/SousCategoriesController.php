@@ -61,7 +61,12 @@ class SousCategoriesController extends Controller
 
     $sousCategorie->save();
 
+    // Remplir la colonne nb_sous_categorie de la table Categorie à chaque fois q'une sous categorie est enregistrée
+    Categorie::where('id',$request->input('sousCategorie_categorie_id') )->increment('nb_sous_categorie', 1);
+
+    // Recuperer toutes les catégories enregistrées de la plus récente à la plus ancienne
     $categories = Categorie::latest()->get();
+
     session()->flash('success', 'Sous-catégorie enregistrée avec succès !');
     return redirect('admin/dashboard/sous-categorie/addSousCategorie')->with('Categorie', $categories);
 }
@@ -156,9 +161,15 @@ class SousCategoriesController extends Controller
 
      public function deleteSousCategorie($id)
         {
-          
+         $recupIdCategorie = Souscategorie::where('id',$id)->value('id_categorie');
+
           $Souscategorie = Souscategorie::findOrFail($id);
           $Souscategorie->delete();
+
+
+          // Décrémenter la colonne de 1 dans la table des catégories
+          Categorie::where('id',$recupIdCategorie)->decrement('nb_sous_categorie', 1);
+
 
           $Categorie = Categorie::latest()->get();
 

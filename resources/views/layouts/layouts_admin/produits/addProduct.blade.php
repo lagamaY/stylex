@@ -15,12 +15,19 @@
                     </div>
                @endif
 
+
+               @if (session()->has('erreur'))
+                    <div class="alert alert-danger" role="alert">
+                           {!! session('erreur') !!}
+                    </div>
+               @endif
+
               <div class="row">
              <!-- HTML5 Inputs -->
              <div class="card mb-4">
                     <h5 class="card-header">Ajoutez un nouveau produit.</h5> <br/>
                     <div class="card-body">
-                    <form method="POST" action="" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('saveProduct')}}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     <!-- Nom du produit -->
@@ -55,10 +62,9 @@
                           multiple
                           class="form-select"
                           id="tailles_produit"
-                          name="tailles_produit"
+                          name="tailles_produit[]"
                       
                         >
-                          <!-- <option selected>Open this select menu</option> -->
                           @foreach($Taille as $item )
                           <option value="{{$item->id}}">{{$item->taille}}</option>
                           @endforeach
@@ -74,9 +80,9 @@
                           multiple
                           class="form-select"
                           id="couleurs_produit"
-                          name="couleurs_produit"
+                          name="couleurs_produit[]"
                         >
-                          <!-- <option selected>Open this select menu</option> -->
+                         
                           @foreach($Couleur as $item )
                           <option value="{{$item->id}}">{{$item->nomCouleur}}</option>
                           @endforeach
@@ -115,24 +121,25 @@
 
                        <!-- Catégories disponibles -->
                       <div class="mb-3 row">
-                        <label for="categorie_produit" class="col-md-2 col-form-label">Catégorie du produit</label>
+                        <label for="categories" class="col-md-2 col-form-label">Catégories</label>
                         <div class="col-md-10">
                         <select
                           multiple
                           class="form-select"
-                          id="categorie_produit"
-                          name="categorie_produit"
+                          id="categories"
+                          name="categories[]"
                         >
-                          <!-- <option selected>Open this select menu</option> -->
-                          @foreach($Categorie as $item )
-                          <option value="{{$item->id}}">{{$item->categorie_name}}</option>
-                          @endforeach
+                          @foreach($Categorie as $categorie )
+                                <option value="{{ $categorie->id }}" {{ in_array($categorie->id, old('categories', [])) ? 'selected' : '' }} >
+                                    {{ $categorie->categorie_name }}
+                                </option>
+                            @endforeach
                         </select>
                         </div>
                       </div>
 
                       <!-- Sous catégorie du produit -->
-                      <div class="mb-3 row">
+                      <!-- <div class="mb-3 row">
                       <label for="sous_categorie_produit" class="col-md-2 col-form-label">Sous catégorie du produit</label>
                       <div class="col-md-10">
                         <select class="form-select" class="form-control" id="sous_categorie_produit" name="sous_categorie_produit"  aria-label="Default select example">
@@ -142,21 +149,71 @@
                           <option value="3">Three</option>
                         </select>
                         </div>
+                      </div> -->
+
+                      <!-- Afficher les sous-catégories disponibles en fonction des catégories sélectionnées -->
+
+                      <div class="mb-3 row">
+                        <label for="sousCategories" class="col-md-2 col-form-label">Sous Catégories</label>
+                        <div class="col-md-10">
+                        <select
+                          multiple
+                          class="form-select"
+                          id="sousCategories"
+                          name="sousCategories[]"
+                        >
+                          @foreach($Souscategorie as $sousCategorie )
+                                <option value="{{ $sousCategorie->id }}"  class="sous-categorie" {{ in_array($sousCategorie->id, old('sousCategories', [])) ? 'selected' : '' }} >
+                                    {{ $sousCategorie->nomSousCategorie }}
+                                </option>
+                            @endforeach
+                        </select>
+                        </div>
                       </div>
+
+
 
                       <!-- Image du produit -->
                       <div class="mb-3 row">
                         <label for="image_produit" class="col-md-2 col-form-label">Image du produit</label>
                         <div class="col-md-10">
-                        <input class="form-control" type="file" id="image_produit" name="image_produit" />
+                        <input class="form-control" type="file" id="image_produit" name="image_produit" accept=" " />
                         </div>
                       </div>
 
+                      <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+
                     </form>
+
+
                     </div>
 
             <!-- / Content -->
             <div class="content-backdrop fade"></div>
           </div>
+
+          <!-- JavaScript pour gérer la sélection des sous-catégories en fonction des catégories sélectionnées -->
+          <script>
+              $(document).ready(function() {
+                  $('#categories').on('change', function() {
+                      var selectedCategorieIds = $(this).val();
+
+                      // Réinitialiser la sélection des sous-catégories
+                      $('#sousCategories option').prop('selected', false);
+
+                      // Afficher seulement les sous-catégories associées aux catégories sélectionnées
+                      $('#sousCategories option').each(function() {
+                          var categorieIds = JSON.parse($(this).data('categorie-ids'));
+
+                          if (categorieIds.some(categorieId => selectedCategorieIds.includes(String(categorieId)))) {
+                              $(this).prop('disabled', false);
+                          } else {
+                              $(this).prop('disabled', true);
+                          }
+                      });
+                  });
+              });
+          </script>
           <!-- Content wrapper -->
 </x-app-layout>

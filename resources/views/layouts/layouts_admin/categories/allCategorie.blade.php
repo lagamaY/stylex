@@ -57,7 +57,7 @@
                         </td>
 
                           <!-- Nb sous categorie -->
-                        <td>10</td>
+                        <td>{{$item->nb_sous_categorie}}</td>
                         
                           <!-- Nb produits disponibles dans la catégorie -->
                         <td>100</td>
