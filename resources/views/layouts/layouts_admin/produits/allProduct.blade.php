@@ -6,7 +6,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Sous Categories disponibles</span></h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Produits disponibles</span></h4>
 
               @if (session()->has('success'))
                     <div class="alert alert-success alert-dismissible" role="alert">
@@ -25,20 +25,21 @@
                         <th>Nom du produit </th>
                         <th>Image</th>
                         <th>Prix</th>
+                        <th>Quantité</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
 
                    
-
+                    @foreach($Produit as $item)
                       <tr>
 
                         <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>1</strong></td>
 
                         <!-- nom du produit -->
 
-                        <td>Chemise bleu</td>
+                        <td> {{$item->nom_produit}} </td>
 
                         <!-- images du produit -->
                         <td>
@@ -50,14 +51,18 @@
                               class="avatar avatar-xs pull-up"
                               title="Lilian Fuller"
                             >
-                              <img src='' alt="nom du produit" class="rounded-circle"  />
+                              <img src='{{ asset("images/produits/$item->image_produit") }}' alt="image du produit" class="rounded-circle"  />
                             </li>
                           </ul>
                         </td>
 
                         <!-- Prix du produit -->
 
-                        <td>100 fr</td>
+                        <td>{{ $item->prix_produit }} <span>Cfa</span></td>
+
+                        <!-- Quantité du produit -->
+
+                        <td>{{ $item->quantite_produit}}</td>
 
                         
 
@@ -83,6 +88,8 @@
 
 
                       </tr>
+
+                      @endforeach
 
                     </tbody>
                   </table>

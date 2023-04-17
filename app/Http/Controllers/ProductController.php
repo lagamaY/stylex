@@ -185,8 +185,15 @@ class ProductController extends Controller
 
 
 
-       //  Afficher tous les produits enregistrés
+    //  Afficher tous les produits enregistrés
+
        public function allProduct(){
-        return view('layouts.layouts_admin.produits.allProduct');
+
+        $Produit = Produit::latest()->get();
+
+        return view('layouts.layouts_admin.produits.allProduct')->with('Produit', $Produit);
     }
+
+
+    
 }
