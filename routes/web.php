@@ -154,8 +154,8 @@ Route::controller(ProductController::class)->prefix('admin/dashboard/product')->
     Route::get('/addProduct', 'addProduct')->name("addProduct");
     Route::post('/saveProduct',  'saveProduct')->name("saveProduct");
     Route::get('/allProduct',  'allProduct')->name("allProduct");
-    // Route::get('/showEditProduct/{id}',  'showEditProduct')->name("showEditProduct");
-    // Route::post('/updateProduct/{id}', 'updateProduct')->name("updateProduct");
+    Route::get('/showEditProduct/{id}',  'showEditProduct')->name("showEditProduct");
+    Route::post('/updateProduct/{id}', 'updateProduct')->name("updateProduct");
     // Route::get('/deleteProduct/{id}',  'deleteProduct')->name("deleteProduct");
 
 });

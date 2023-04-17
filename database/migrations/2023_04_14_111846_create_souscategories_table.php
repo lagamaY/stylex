@@ -19,7 +19,10 @@ return new class extends Migration
             $table->string('slug');
            
             $table->unsignedBigInteger('id_categorie'); // clé étrangère
-            $table->foreign('id_categorie')->references('id')->on('categories');
+            $table->foreign('id_categorie')->references('id')->on('categories')
+                                                            ->constrained()
+                                                            ->onUpdate('cascade')
+                                                            ->onDelete('cascade');
 
             $table->integer('nb_produit')->default(0);
             $table->timestamps();

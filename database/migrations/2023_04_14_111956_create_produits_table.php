@@ -33,8 +33,10 @@ return new class extends Migration
             $table->timestamps();
 
             // Définir les clés étrangères
-            $table->foreign('categorie_id')->references('id')->on('categories');
-            $table->foreign('produit_id')->references('id')->on('produits');
+            $table->foreign('categorie_id')->references('id')->on('categories')     
+                                                                ->constrained();
+            $table->foreign('produit_id')->references('id')->on('produits')
+                                                            ->constrained();
         });
 
         // table pivaut pour les tables sous categorie et produit
@@ -45,8 +47,10 @@ return new class extends Migration
             $table->timestamps();
 
             // Définir les clés étrangères
-            $table->foreign('sous_categorie_id')->references('id')->on('souscategories');
-            $table->foreign('produit_id')->references('id')->on('produits');
+            $table->foreign('sous_categorie_id')->references('id')->on('souscategories')
+                                                                    ->constrained();
+            $table->foreign('produit_id')->references('id')->on('produits')
+                                                            ->constrained();
         });
 
 
@@ -58,8 +62,10 @@ return new class extends Migration
             $table->timestamps();
 
             // Définir les clés étrangères
-            $table->foreign('taille_id')->references('id')->on('tailles');
-            $table->foreign('produit_id')->references('id')->on('produits');
+            $table->foreign('taille_id')->references('id')->on('tailles')
+                                                            ->constrained();
+            $table->foreign('produit_id')->references('id')->on('produits')
+                                                            ->constrained();
         });
 
 
@@ -71,8 +77,10 @@ return new class extends Migration
             $table->timestamps();
 
             // Définir les clés étrangères
-            $table->foreign('couleur_id')->references('id')->on('couleurs');
-            $table->foreign('produit_id')->references('id')->on('produits');
+            $table->foreign('couleur_id')->references('id')->on('couleurs')
+                                                            ->constrained();
+            $table->foreign('produit_id')->references('id')->on('produits')
+                                                            ->constrained();
         });
 
 

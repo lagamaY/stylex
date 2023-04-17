@@ -76,10 +76,10 @@
                               <a class="dropdown-item" href="  "
                                 ><i class="bx bx-edit-alt me-2"></i> View</a
                               >
-                              <a class="dropdown-item" href="  "
+                              <a class="dropdown-item" href="{{route('showEditProduct', ['id'=> $item->id] )}}"
                                 ><i class="bx bx-edit-alt me-2"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="  "
+                              <a class="dropdown-item" href=""
                                 ><i class="bx bx-trash me-2"></i> Delete</a
                               >
                             </div>
