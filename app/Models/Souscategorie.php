@@ -15,5 +15,9 @@ class Souscategorie extends Model
         return $this->belongsTo(Categorie::class, 'id_categorie');
     }
 
-    
+        // Relation Many-to-Many avec Produit
+    public function produits()
+    {
+        return $this->belongsToMany(Produit::class, 'sous_categorie_produit', 'sous_categorie_id','produit_id');
+    }
 }

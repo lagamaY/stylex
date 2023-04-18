@@ -16,14 +16,18 @@ class Categorie extends Model
         // Relation "belongsto" avec le modèle SousCategorie
         public function sousCategorie()
         {
-            return $this->belongsTo(Souscategorie::class);
+            return $this->hasMany(Souscategorie::class, 'id_categorie', 'id');
         }
     
         // Relation "belongstomany" avec le modèle Produit
         public function produits()
         {
-            return $this->belongsToMany(Produit::class);
+            return $this->belongsToMany(Produit::class, 'categorie_produit', 'produit_id', 'categorie_id');
+
+            
         }
+
+
 
 
 

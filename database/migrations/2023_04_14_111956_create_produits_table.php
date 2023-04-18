@@ -33,8 +33,8 @@ return new class extends Migration
             $table->timestamps();
 
             // Définir les clés étrangères
-            $table->foreign('categorie_id')->references('id')->on('categories');
-            $table->foreign('produit_id')->references('id')->on('produits');
+            $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
         });
 
         // table pivaut pour les tables sous categorie et produit
@@ -45,8 +45,8 @@ return new class extends Migration
             $table->timestamps();
 
             // Définir les clés étrangères
-            $table->foreign('sous_categorie_id')->references('id')->on('souscategories');
-            $table->foreign('produit_id')->references('id')->on('produits');
+            $table->foreign('sous_categorie_id')->references('id')->on('souscategories')->onDelete('cascade');
+            $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
         });
 
 
@@ -59,8 +59,8 @@ return new class extends Migration
 
             // Définir les clés étrangères
             $table->foreign('taille_id')->references('id')->on('tailles')
-                                                            ->constrained();
-            $table->foreign('produit_id')->references('id')->on('produits');
+                                                            ->onDelete('cascade');
+            $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
         });
 
 
@@ -72,9 +72,8 @@ return new class extends Migration
             $table->timestamps();
 
             // Définir les clés étrangères
-            $table->foreign('couleur_id')->references('id')->on('couleurs')
-                                                            ->constrained();
-            $table->foreign('produit_id')->references('id')->on('produits');
+            $table->foreign('couleur_id')->references('id')->on('couleurs')->onDelete('cascade');
+            $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
 
         });
 

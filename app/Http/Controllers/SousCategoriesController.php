@@ -161,16 +161,32 @@ class SousCategoriesController extends Controller
 
      public function deleteSousCategorie($id)
         {
+
+        try {
+        // Récupérer l'id_categorie dans la table sous catégorie afin de pouvoir decrémenter 
          $recupIdCategorie = Souscategorie::where('id',$id)->value('id_categorie');
 
+
+        // Récupérer la sous catégorie correspondant à l'id reçu
           $Souscategorie = Souscategorie::findOrFail($id);
-          $Souscategorie->delete();
+
+              // Rechercher les produits liés à la sous-catégorie 
+                $produits = $Souscategorie->produits;
+
+              // Supprimer les produits associés à la sous catégorie
+                foreach ($produits as $produit) {
+                    
+                    $produit->delete();
+                }
+            
+                // Supprimer la sous catégorie
+                $Souscategorie->delete();
 
 
           // Décrémenter la colonne de 1 dans la table des catégories
           Categorie::where('id',$recupIdCategorie)->decrement('nb_sous_categorie', 1);
 
-
+          // récuperer les catégories pour l'affichage correcte de la page allSousCategorie
           $Categorie = Categorie::latest()->get();
 
           session()->flash('success', 'La sous Categorie a été supprimé avec succès !');
@@ -181,6 +197,14 @@ class SousCategoriesController extends Controller
 
 
       }
+
+      catch (\Exception $e) {
+        // Retourner une réponse d'erreur
+        return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la suppression de la sous catégorie. Veuillez contacter l\'administrateur du site svp ! ' );
+    }
+
+
+    }
 
 
 
