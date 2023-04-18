@@ -10,7 +10,7 @@ class Produit extends Model
     use HasFactory;
 
 
-
+    // Gérer la relation many to many entre la table produit et toutes les autres tables
     public function categories()
     {
         return $this->belongsToMany(Categorie::class, 'categorie_produit', 'produit_id', 'categorie_id');
@@ -30,5 +30,7 @@ class Produit extends Model
     {
         return $this->belongsToMany(Couleur::class, 'couleur_produit', 'produit_id', 'couleur_id');
     }
+
+
 
 }

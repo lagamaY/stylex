@@ -180,30 +180,69 @@ class CategoriesController extends Controller
 
 // Supprimer une catégorie
 
-    public function deleteCategorie($id)
-     {
+    // public function deleteCategorie($id)
+    //  {
          
         // Récupérer la catégorie à supprimer
-         $Categorie = Categorie::findOrFail($id);
+        //  $Categorie = Categorie::findOrFail($id);
 
         // Récupérer les sous-catégories liées à cette catégorie
-         $sousCategories = Souscategorie::where('id_categorie', $Categorie->id)->get();
+        //  $sousCategories = Souscategorie::where('id_categorie', $Categorie->id)->get();
+         
 
         // Supprimer les sous-catégories
-            foreach ($sousCategories as $sousCategorie) {
-                $sousCategorie->delete();
-            }
-        // Supprimer la catégorie
-         $Categorie->delete();
+        //     foreach ($sousCategories as $sousCategorie) {
+        //         $sousCategorie->delete();
+        //     }
+        // // Supprimer la catégorie
+        //  $Categorie->delete();
 
         // Passer les paramètres nécessaire à l'affichage de la page allsouscategorie
 
-         $categorie = Categorie::get();
+    //      $categorie = Categorie::get();
 
-         session()->flash('success', 'Catégorie supprimée avec succès !');
+    //      session()->flash('success', 'Catégorie supprimée avec succès !');
  
-        return redirect()->route('allCategorie')->with('Categorie', $categorie);
+    //     return redirect()->route('allCategorie')->with('Categorie', $categorie);
 
 
-     }
+    //  }
+
+     // Suppression d'une catégorie spécifique
+public function deleteCategorie($id)
+{
+    try {
+        // Trouver la catégorie à supprimer
+        $categorie = Categorie::findOrFail($id);
+
+        // Supprimer les relations entre les produits et la catégorie
+        $categorie->produits()->sync([]);
+
+        // Récupérer les sous-catégories liées à cette catégorie
+        $sousCategories = Souscategorie::where('id_categorie', $categorie->id)->get();
+
+        // Supprimer les sous-catégories
+        foreach ($sousCategories as $sousCategorie) {
+            $sousCategorie->delete();
+        }
+
+        // Supprimer la catégorie
+        $categorie->delete();
+
+        session()->flash('success', 'Catégorie supprimée avec succès !');
+
+        // Retourner une réponse réussie
+        return redirect()->route('allCategorie');
+
+        
+    } catch (\Exception $e) {
+        // Retourner une réponse d'erreur
+        return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la suppression de la catégorie : ' . $e->getMessage());
+    }
+}
+
+
+
+
+
 }

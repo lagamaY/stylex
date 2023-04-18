@@ -22,6 +22,12 @@
                     </div>
                @endif
 
+               @if (session('error'))
+                  <div class="alert alert-danger">
+                      {{ session('error') }}
+                  </div>
+               @endif
+
               <div class="row">
              <!-- HTML5 Inputs -->
              <div class="card mb-4">

@@ -222,6 +222,7 @@ class ProductController extends Controller
 
 
 public function updateProduct(Request $request, $id) {
+    try {
     // Valider les données du formulaire
     $request->validate([
         'nom_produit' => '',
@@ -392,6 +393,12 @@ public function updateProduct(Request $request, $id) {
                                                             ->with('Souscategorie', $Souscategorie)
                                                             ->with('Couleur', $Couleur)
                                                             ->with('Taille', $Taille);
+
+} catch (\Exception $e) {
+    // Retourner une réponse d'erreur
+    return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la mise à jour du produit. Veuillez contacter l\'administrateur du site svp ! ' );
+}
+
 }
 
 
@@ -400,30 +407,50 @@ public function updateProduct(Request $request, $id) {
 
 // Supprimer un produit enregistré
 
-    // public function deleteProduct($id){
+    public function deleteProduct($id){
 
-    //     $produit = Produit::find($id);
+        try {
 
-    //     $produit->delete();
+        $produit = Produit::find($id);
+
+
+        // Supprimer les catégories associées au produit
+        $produit->categories()->detach();
+
+        // Supprimer les sous-catégories associées au produit
+        $produit->souscategories()->detach();
+
+        // Supprimer les tailles associées au produit
+        $produit->tailles()->detach();
+
+        // Supprimer les couleurs associées au produit
+        $produit->couleurs()->detach();
+        // Supprimer le produit en question
+        $produit->delete();
+
 
 
         // Rediriger vers la vue d'enregistrement des produits avec un message de succès
 
-        // $Categorie = Categorie::latest()->get();
-        // $Souscategorie = Souscategorie::latest()->get();
-        // $Couleur = Couleur::latest()->get();
-        // $Taille = Taille::latest()->get();
+        $Categorie = Categorie::latest()->get();
+        $Souscategorie = Souscategorie::latest()->get();
+        $Couleur = Couleur::latest()->get();
+        $Taille = Taille::latest()->get();
 
-        // session()->flash('success', 'Le produit supprimé avec succès.');
+        session()->flash('success', 'Produit supprimé avec succès.');
 
-        // return redirect()->route('allProduct')->with('Categorie', $Categorie)
-        //                                                         ->with('Souscategorie', $Souscategorie)
-        //                                                         ->with('Couleur', $Couleur)
-        //                                                         ->with('Taille', $Taille);
+        return redirect()->route('allProduct')->with('Categorie', $Categorie)
+                                                                ->with('Souscategorie', $Souscategorie)
+                                                                ->with('Couleur', $Couleur)
+                                                                ->with('Taille', $Taille);
+
         
-
-
-
-    // }
+        } catch (\Exception $e) {
+            // Retourner une réponse d'erreur
+            return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la suppression du produit. Veuillez contacter l\'administrateur du site svp ! ' );
+        }
     
+
+
+    }
 }

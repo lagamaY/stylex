@@ -13,6 +13,12 @@
                            {!! session('success') !!}
                     </div>
                @endif
+
+               @if (session('error'))
+                  <div class="alert alert-danger">
+                      {{ session('error') }}
+                  </div>
+               @endif
                
                <!-- Basic Bootstrap Table -->
                <div class="card">
@@ -79,7 +85,7 @@
                               <a class="dropdown-item" href="{{route('showEditProduct', ['id'=> $item->id] )}}"
                                 ><i class="bx bx-edit-alt me-2"></i> Edit</a
                               >
-                              <a class="dropdown-item" href=""
+                              <a class="dropdown-item" href="{{route('deleteProduct', ['id'=> $item->id] )}}"
                                 ><i class="bx bx-trash me-2"></i> Delete</a
                               >
                             </div>
