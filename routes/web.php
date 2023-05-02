@@ -47,13 +47,18 @@ require __DIR__.'/auth.php';
 
 Route::get('/',  [ClientController::class, 'viewIndex'])->name('accueil');
 
+// Route::get('/CategorieProducts/{nom}', [ClientController::class, 'viewCategorieProducts'])->name('CategorieProducts');
+
+Route::get('/CategorieProducts/{nom}', [CategoriesController::class, 'viewCategorieProducts'])->name('CategorieProducts');
+
+
 Route::get('/boutique',  [ClientController::class, 'viewBoutiquePage'])->name('boutique');
 
 Route::get('/panier',  [ClientController::class, 'viewPanierPage'])->name('panier');
 
 Route::get('/checkout',  [ClientController::class, 'viewCheckoutPage'])->name('panier');
 
-Route::get('/detailProduit',  [ClientController::class, 'viewProductDetailPage'])->name('detail_produit');
+Route::get('/detailProduit/{id}',  [ClientController::class, 'viewProductDetailPage'])->name('detailProduit');
 
 
 

@@ -277,6 +277,30 @@ public function deleteCategorie($id)
 }
 
 
+    // Afficher les produits présents dans une catégorie
+
+    public function viewCategorieProducts($nom){
+
+        $Categorie_id = Categorie::where('categorie_name',$nom )->get('id');
+
+        // $categorie = Categorie::findOrFail($Categorie_id);
+
+        // $produitsCategorieId = $categorie->produits;
+
+        $category = Categorie::with('product')->find($Categorie_id); 
+
+        // $category = Category::with('product')->find($id); 
+    
+        // return view('products.categories')->with('products', $categories);
+
+
+       
+
+
+        dd($category);
+
+        return view("client.produitParCategorie")->with('Categorie', $Categorie);
+    }
 
 
 

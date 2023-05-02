@@ -24,7 +24,7 @@ class Categorie extends Model
         {
             return $this->belongsToMany(Produit::class, 'categorie_produit', 'produit_id', 'categorie_id');
 
-            
+        
         }
 
 
