@@ -175,38 +175,7 @@ class CategoriesController extends Controller
 
     }
             
-        
-            
 
-// Supprimer une catégorie
-
-    // public function deleteCategorie($id)
-    //  {
-         
-        // Récupérer la catégorie à supprimer
-        //  $Categorie = Categorie::findOrFail($id);
-
-        // Récupérer les sous-catégories liées à cette catégorie
-        //  $sousCategories = Souscategorie::where('id_categorie', $Categorie->id)->get();
-         
-
-        // Supprimer les sous-catégories
-        //     foreach ($sousCategories as $sousCategorie) {
-        //         $sousCategorie->delete();
-        //     }
-        // // Supprimer la catégorie
-        //  $Categorie->delete();
-
-        // Passer les paramètres nécessaire à l'affichage de la page allsouscategorie
-
-    //      $categorie = Categorie::get();
-
-    //      session()->flash('success', 'Catégorie supprimée avec succès !');
- 
-    //     return redirect()->route('allCategorie')->with('Categorie', $categorie);
-
-
-    //  }
 
      // Suppression d'une catégorie spécifique
 public function deleteCategorie($id)
@@ -283,23 +252,16 @@ public function deleteCategorie($id)
 
         $Categorie_id = Categorie::where('categorie_name',$nom )->get('id');
 
-        // $categorie = Categorie::findOrFail($Categorie_id);
-
-        // $produitsCategorieId = $categorie->produits;
-
-        $category = Categorie::with('product')->find($Categorie_id); 
-
-        // $category = Category::with('product')->find($id); 
-    
-        // return view('products.categories')->with('products', $categories);
+        
+        $category = Categorie::with('produits')->find($Categorie_id)->first(); 
+       
+        $produits = $category->produits;
 
 
        
+        // dd($produits);
 
-
-        dd($category);
-
-        return view("client.produitParCategorie")->with('Categorie', $Categorie);
+        return view("client.produitParCategorie")->with(['categorie'=> $category,"produits"=>$produits]);
     }
 
 
