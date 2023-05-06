@@ -29,7 +29,8 @@
             <div class="col-lg-7 mb-5">
                 <div class="contact-form">
                     <div id="success"></div>
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+
+                    <!-- <form name="sentMessage" id="contactForm" novalidate="novalidate">
                         <div class="control-group">
                             <input type="text" class="form-control" id="name" placeholder="Your Name"
                                 required="required" data-validation-required-message="Please enter your name" />
@@ -55,7 +56,7 @@
                             <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Send
                                 Message</button>
                         </div>
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="col-lg-5 mb-5">

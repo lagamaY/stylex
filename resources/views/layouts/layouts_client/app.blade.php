@@ -9,14 +9,16 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="eshopper/img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
+    <link href="{asset('eshopper/img/favicon.ico')}" rel="icon">
+        
+     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
 
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/eshopper/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/eshopper/css/all.min.css" rel="stylesheet"> -->
 
     <!-- Libraries Stylesheet -->
     <link href="{{asset('eshopper/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
@@ -68,12 +70,15 @@
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
     <script src="{{asset('eshopper/lib/easing/easing.min.js')}}"></script>
+
     <script src="{{asset('eshopper/lib/owlcarousel/owl.carousel.min.js')}}"></script>
 
     <!-- Contact Javascript File -->
-    <script src="eshopper/mail/jqBootstrapValidation.min.js"></script>
+    <script src="{asset('eshopper/mail/jqBootstrapValidation.min.js')}"></script>
     <script src="{{asset('eshopper/mail/contact.js')}}"></script>
 
     <!-- Template Javascript -->

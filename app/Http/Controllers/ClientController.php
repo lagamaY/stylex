@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 
 use App\Models\Slide;
 use App\Models\Categorie;
@@ -11,6 +11,7 @@ use App\Models\Souscategorie;
 use App\Models\Couleur;
 use App\Models\Taille;
 use App\Models\Produit;
+use App\Models\Cart;
 
 
 
@@ -20,47 +21,37 @@ class ClientController extends Controller
     // Affichage de la page d'accueil
     public function viewIndex(){
 
-         $slides = Slide::latest()->get();
+         $slide1 = Slide::where('id',1)->first();
+         $slide2 = Slide::where('id',2)->first();
 
          $Categorie = Categorie::latest()->get();
 
-         $Produit = Produit::latest()->get();
+         $Produit = Produit::latest()->take(8)->get();
 
-        return view("client.index")->with('Slide', $slides)
+         $ProduitPetitPrix = Produit::orderBy('prix_produit','asc')->take(8)->get();;
+
+        return view("client.index")->with('slide1', $slide1)
+                                    ->with('slide2', $slide2)
                                     ->with('Categorie', $Categorie) 
-                                    ->with('Produit', $Produit);  
+                                    ->with('Produit', $Produit)  
+                                    ->with('ProduitPetitPrix', $ProduitPetitPrix);
     
 
     }
 
 
-    // Afficher les produits présents dans une catégorie
 
-    // public function viewCategorieProducts($nom){
-
-    //     $Categorie_id = Categorie::where('categorie_name',$nom )->get('id');
-
-    //     $Categorie = Categorie::findOrFail($Categorie_id);
-
-    //     $produitsCategorieId = $Categorie->produits;
-
-    //     foreach ($user->roles as $role) {
-    //         echo $role->pivot->created_at;
-    //     }
-
-    //     dd($Categorie);
-
-    //     return view("client.produitParCategorie")->with('Categorie', $Categorie);
-    // }
 
     
 
     // Affichage de la page boutique
     public function viewBoutiquePage(){
 
-        $Produit = Produit::latest()->get();
+        $Produit = Produit::latest()->paginate(6);
+        $couleurs = Couleur::latest()->get();
+        $taille = Taille::latest()->get();
         
-        return view("client.boutique")->with('Produit', $Produit);
+        return view("client.boutique")->with(['Produit'=> $Produit, 'couleurs'=> $couleurs, 'tailles'=> $taille]);
     }
 
 
@@ -70,7 +61,18 @@ class ClientController extends Controller
 
         $Produit = Produit::findorfail($id);
 
-        return view("client.detail_produit")->with('Produit',$Produit );
+        $categories_prod_id = $Produit->categories->first()->id;
+
+        
+        $category = Categorie::with('produits')->find($categories_prod_id)->first(); 
+
+        
+       
+        $produits_de_meme_categorie = $category->produits;
+    
+
+
+        return view("client.detail_produit")->with(['Produit'=>$Produit, 'produits_de_meme_categorie' => $produits_de_meme_categorie] );
     }
     
 
@@ -103,5 +105,34 @@ class ClientController extends Controller
         return view("client.contact");
     }
 
+
+    //pour la creation de mon panier
+    public function addToCart(Request $request, $id){
+
+        
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->add($id,$request->nom_produit,$request->image_produit,$request->prix_produit,$request->quantite_produit, $request->taille_produit,$request->couleur_produit, $request->quantite_max );
+        Session::put('cart', $cart);
+        // Session::put('topCart', $cart->items);
+        return back();
+    }
+
+
+    public function removeToCart(Request $request, $id)
+    {
+        $oldCart = $request->session()->get('cart');
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+        
+        if ($cart->totalQty == 0) {
+            $request->session()->forget('cart');
+        } else {
+            $request->session()->put('cart', $cart);
+        }
+        
+
+        return redirect()->back()->with('success', 'Produit rétiré du panier avec succèes.');
+    }
 
 }

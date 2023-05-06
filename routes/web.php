@@ -54,9 +54,14 @@ Route::get('/CategorieProducts/{nom}', [CategoriesController::class, 'viewCatego
 
 Route::get('/boutique',  [ClientController::class, 'viewBoutiquePage'])->name('boutique');
 
+Route::put('/addToCart/{id}',  [ClientController::class, 'addToCart'])->name('addToCart');
+// Route::delete('/cart/{id}', 'CartController@removeItem')->name('cart.removeItem');
+Route::delete('/remove_produit/{id}',  [ClientController::class, 'removeToCart'])->name('remove_produit');
+// Route::delete('/remove_produit/{id}', 'ClientController@removeToCart')->name('remove_produit');
+
 Route::get('/panier',  [ClientController::class, 'viewPanierPage'])->name('panier');
 
-Route::get('/checkout',  [ClientController::class, 'viewCheckoutPage'])->name('panier');
+Route::get('/checkout',  [ClientController::class, 'viewCheckoutPage'])->name('checkout');
 
 Route::get('/detailProduit/{id}',  [ClientController::class, 'viewProductDetailPage'])->name('detailProduit');
 

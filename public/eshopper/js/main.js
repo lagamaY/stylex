@@ -87,14 +87,20 @@
     // Product Quantity
     $('.quantity button').on('click', function () {
         var button = $(this);
+        var qte_max = document.getElementById('quantite_max').value;
+        // alert(qte_max)
         var oldValue = button.parent().parent().find('input').val();
         if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
+            var newVal;
+            if(parseInt(oldValue)<parseInt(qte_max))  newVal= parseFloat(oldValue) + 1;
+            else newVal = oldValue
         } else {
             if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
+                if(parseInt(oldValue)!=1) var newVal = parseFloat(oldValue) - 1;
+            else newVal = oldValue
+
             } else {
-                newVal = 0;
+                newVal = 1;
             }
         }
         button.parent().parent().find('input').val(newVal);
